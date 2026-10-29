@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="110" fill="#181816"/>
+  <text x="256" y="255" text-anchor="middle" font-family="Georgia, serif" font-size="164" fill="#F6F5F0">my</text>
+  <text x="256" y="390" text-anchor="middle" font-family="Georgia, serif" font-size="120" fill="#F6F5F0">life.</text>
+</svg>

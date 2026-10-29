@@ -1,0 +1,3009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="my life." />
+  <meta name="theme-color" content="#181816" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='28' fill='%23181816'/%3E%3Ctext x='60' y='72' font-family='Georgia,serif' font-size='44' fill='%23F6F5F0' text-anchor='middle'%3Emy.%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='28' fill='%23181816'/%3E%3Ctext x='60' y='72' font-family='Georgia,serif' font-size='44' fill='%23F6F5F0' text-anchor='middle'%3Emy.%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22my%20life.%20%E2%80%94%20Ahad%20Tracker%22%2C%22short_name%22%3A%22my%20life.%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F0F0E%22%2C%22theme_color%22%3A%22%23181816%22%7D" />
+  <title>my life. — Ahad's Personal Finance, Investing, Gym, Protein & Water Tracker</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: #F6F5F0;
+      --bg-sidebar: #F2F0EA;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #EFECE6;
+      --border-hairline: #E5E2DC;
+      --text-primary: #181816;
+      --text-secondary: #686660;
+      --text-muted: #96938C;
+    }
+
+    body.dark-mode {
+      --bg-canvas: #0F0F0E;
+      --bg-sidebar: #141413;
+      --bg-card: #1A1A18;
+      --bg-subtle: #242421;
+      --border-hairline: #2E2D29;
+      --text-primary: #F5F4F0;
+      --text-secondary: #A6A39B;
+      --text-muted: #78756E;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .font-serif-editorial {
+      font-family: 'Instrument Serif', Georgia, serif;
+    }
+
+    .font-money-unique {
+      font-family: 'Syne', 'Instrument Serif', sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Dark Mode Utility Classes */
+    body.dark-mode .bg-white,
+    body.dark-mode .bg-white\/80,
+    body.dark-mode .bg-white\/95 {
+      background-color: var(--bg-card) !important;
+    }
+
+    body.dark-mode .bg-\[\#F6F5F0\],
+    body.dark-mode .bg-\[\#F6F5F0\]\/95,
+    body.dark-mode .bg-\[\#F2F0EA\] {
+      background-color: var(--bg-sidebar) !important;
+    }
+
+    body.dark-mode .bg-\[\#FBFBFA\],
+    body.dark-mode .home-subcard,
+    body.dark-mode .bg-stone-50,
+    body.dark-mode .bg-stone-100,
+    body.dark-mode .bg-stone-200\/60,
+    body.dark-mode .bg-stone-200\/70,
+    body.dark-mode .bg-stone-200\/80 {
+      background-color: #22221F !important;
+      color: var(--text-primary) !important;
+      border-color: #33322D !important;
+    }
+
+    body.dark-mode .from-emerald-50\/40,
+    body.dark-mode .from-sky-50\/40 {
+      --tw-gradient-from: rgba(255, 255, 255, 0.03) !important;
+    }
+
+    body.dark-mode .text-emerald-700,
+    body.dark-mode .text-emerald-800 {
+      color: #34D399 !important;
+    }
+
+    body.dark-mode .text-rose-700,
+    body.dark-mode .text-rose-800 {
+      color: #FB7185 !important;
+    }
+
+    body.dark-mode .text-sky-700,
+    body.dark-mode .text-sky-800 {
+      color: #38BDF8 !important;
+    }
+
+    body.dark-mode .text-amber-700 {
+      color: #FBBF24 !important;
+    }
+
+    body.dark-mode .text-indigo-700 {
+      color: #818CF8 !important;
+    }
+
+    body.dark-mode .text-\[\#181816\],
+    body.dark-mode .text-stone-700,
+    body.dark-mode .text-stone-600 {
+      color: var(--text-primary) !important;
+    }
+
+    body.dark-mode .text-\[\#686660\] {
+      color: var(--text-secondary) !important;
+    }
+
+    body.dark-mode .text-\[\#96938C\] {
+      color: var(--text-muted) !important;
+    }
+
+    body.dark-mode .border-\[\#E5E2DC\],
+    body.dark-mode .divide-\[\#E5E2DC\] > :not([hidden]) ~ :not([hidden]) {
+      border-color: var(--border-hairline) !important;
+    }
+
+    body.dark-mode input,
+    body.dark-mode select {
+      background-color: var(--bg-subtle) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-hairline) !important;
+    }
+
+    body.dark-mode .cta-primary-btn {
+      background-color: #F5F4F0 !important;
+      color: #181816 !important;
+    }
+
+    body.dark-mode .emerald-badge {
+      background-color: rgba(16, 185, 129, 0.15) !important;
+      color: #34D399 !important;
+    }
+
+    body.dark-mode .amber-badge {
+      background-color: rgba(245, 158, 11, 0.15) !important;
+      color: #FBBF24 !important;
+    }
+
+    body.dark-mode .sky-badge {
+      background-color: rgba(14, 165, 233, 0.15) !important;
+      color: #38BDF8 !important;
+    }
+
+    body.dark-mode .rose-badge {
+      background-color: rgba(244, 63, 94, 0.15) !important;
+      color: #FB7185 !important;
+    }
+
+    body.dark-mode .income-book-box {
+      background-color: rgba(16, 185, 129, 0.10) !important;
+      border: 1px solid rgba(16, 185, 129, 0.25) !important;
+    }
+
+    body.dark-mode .expenses-book-box {
+      background-color: rgba(244, 63, 94, 0.10) !important;
+      border: 1px solid rgba(244, 63, 94, 0.25) !important;
+    }
+
+    /* Custom subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D5D2CA;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-stone-900 selection:text-stone-50">
+
+  <!-- Main App Shell -->
+  <div id="app-shell" class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- DESKTOP LEFT SIDEBAR -->
+    <aside class="desktop-sidebar hidden md:flex md:w-64 lg:w-72 flex-col justify-between bg-[#F2F0EA] border-r border-[#E5E2DC] p-6 shrink-0 select-none">
+      <div>
+        <!-- Brand Header + Dark Mode Toggle -->
+        <div class="mb-5">
+          <div class="flex items-center justify-between gap-2">
+            <h1 class="font-serif-editorial text-3xl tracking-tight text-[#181816]">my life.</h1>
+            <button id="btn-desktop-dark-mode" type="button" class="px-2.5 py-1 rounded-lg bg-white border border-[#E5E2DC] text-[11px] font-medium text-[#181816] flex items-center gap-1.5 shadow-2xs transition">
+              <span class="dark-mode-icon">🌙</span>
+              <span class="dark-mode-label">Dark</span>
+            </button>
+          </div>
+          <p class="text-xs text-[#686660] mt-1.5 leading-relaxed">
+            Ahad's All-in-One Life, Money, Gym &amp; Nutrition Hub.
+          </p>
+        </div>
+
+        <!-- Desktop Quick Log Button -->
+        <div class="mb-6">
+          <button id="btn-desktop-quick-add" type="button" class="w-full cta-primary-btn py-2.5 px-3 rounded-xl bg-[#181816] hover:bg-stone-800 text-white text-xs font-medium flex items-center justify-center gap-1.5 shadow-sm transition">
+            <span>+ Quick Log</span>
+          </button>
+        </div>
+
+        <!-- Navigation Links (6 Main Pillars) -->
+        <nav class="space-y-1" aria-label="Main Navigation">
+          <button type="button" data-nav="overview" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Home (Daily Update)</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">01</span>
+          </button>
+
+          <button type="button" data-nav="money" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <span>Money Expense Tracker</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">02</span>
+          </button>
+
+          <button type="button" data-nav="investing" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span>Investing &amp; SIPs</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">03</span>
+          </button>
+
+          <button type="button" data-nav="gym" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6.5 6.5 17.5 17.5"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/><path d="m2 6 4-4"/><path d="m18 22 4-4"/></svg>
+              <span>Gym (Progressive Overload)</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">04</span>
+          </button>
+
+          <button type="button" data-nav="protein" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              <span>Protein &amp; Food</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">05</span>
+          </button>
+
+          <button type="button" data-nav="water" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <span class="text-base leading-none">💧</span>
+              <span>Water Tracker</span>
+            </span>
+            <span class="text-[11px] font-mono-num text-stone-400">06</span>
+          </button>
+
+          <button type="button" data-nav="reminders" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span>Reminders</span>
+            </span>
+            <span id="sidebar-reminder-badge" class="px-1.5 py-0.5 text-[11px] font-mono-num rounded-full bg-[#181816] text-white">5</span>
+          </button>
+
+          <button type="button" data-nav="settings" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition">
+            <span class="flex items-center gap-3">
+              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Goals &amp; Structure</span>
+            </span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Bottom Workspace Badge -->
+      <div class="p-3.5 rounded-xl bg-white/80 border border-[#E5E2DC] text-xs text-[#686660] space-y-1">
+        <div class="flex items-center justify-between font-medium text-[#181816]">
+          <span>Ahad's Workspace</span>
+          <span id="currency-badge" class="font-mono-num">₹ INR</span>
+        </div>
+        <p class="text-[11px] text-[#96938C]">Mobile-first · Daily Update Synced</p>
+      </div>
+    </aside>
+
+    <!-- MOBILE STICKY TOP BAR (Matches Sketch 1: ☰ my life. [Dark] [+ Log]) -->
+    <header class="mobile-top-header md:hidden sticky top-0 z-30 bg-[#F6F5F0]/95 backdrop-blur-md border-b border-[#E5E2DC] px-4 py-3 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <button id="btn-mobile-drawer" type="button" class="p-1.5 -ml-1 rounded-lg hover:bg-stone-200/70 text-[#181816]" aria-label="Open Navigation Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="font-serif-editorial text-2xl leading-none text-[#181816]">my life.</span>
+        <!-- Dark Mode Toggle Button from Sketch 1 -->
+        <button id="btn-mobile-dark-mode" type="button" class="ml-1 px-2.5 py-1 rounded-full bg-white border border-[#E5E2DC] text-[11px] font-medium text-[#181816] flex items-center gap-1 shadow-2xs active:scale-95 transition" aria-label="Toggle Dark Mode">
+          <span class="dark-mode-icon">🌙</span>
+          <span class="dark-mode-label">Dark</span>
+        </button>
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" data-nav="reminders" class="nav-btn relative p-2 rounded-lg hover:bg-stone-200/60 text-[#181816]" aria-label="Reminders">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span id="mobile-reminder-badge" class="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#181816] text-white text-[10px] font-mono-num flex items-center justify-center">5</span>
+        </button>
+        <button id="btn-mobile-quick-add" type="button" class="cta-primary-btn px-3 py-1.5 rounded-lg bg-[#181816] text-white text-xs font-medium flex items-center gap-1 shadow-sm active:scale-95 transition">
+          <span>+ Log</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MOBILE SLIDE-OUT DRAWER -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 z-40 bg-black/50 hidden opacity-0 transition-opacity">
+      <div class="w-72 max-w-[82vw] h-full bg-[#F6F5F0] border-r border-[#E5E2DC] p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-[#E5E2DC]">
+            <div>
+              <span class="font-serif-editorial text-2xl text-[#181816]">my life.</span>
+              <p class="text-[11px] text-[#686660]">Ahad's Personal Tracker</p>
+            </div>
+            <button id="btn-close-drawer" type="button" class="p-1.5 rounded-lg hover:bg-stone-200 text-stone-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="mt-4 space-y-1">
+            <button type="button" data-nav="overview" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>01 · Home (Daily Update)</span>
+            </button>
+            <button type="button" data-nav="money" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>02 · Money Expense Tracker</span>
+            </button>
+            <button type="button" data-nav="investing" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>03 · Investing &amp; SIPs</span>
+            </button>
+            <button type="button" data-nav="gym" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>04 · Gym (Progressive Overload)</span>
+            </button>
+            <button type="button" data-nav="protein" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>05 · Protein &amp; Food</span>
+            </button>
+            <button type="button" data-nav="water" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>06 · Water Tracker</span>
+            </button>
+            <button type="button" data-nav="reminders" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>07 · Action Reminders</span>
+            </button>
+            <button type="button" data-nav="reminders" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold flex items-center justify-between bg-amber-500/15 border border-amber-500/30 text-amber-800">
+              <span>🔔 Action Reminder Quick Access</span>
+              <span>→</span>
+            </button>
+            <button type="button" data-nav="settings" class="nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between">
+              <span>08 · Goals &amp; Setup</span>
+            </button>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-white border border-[#E5E2DC] text-xs text-[#686660]">
+          <p class="font-medium text-[#181816]">Ahad's All-in-One OS</p>
+          <p class="text-[11px] mt-0.5">Money · Investing · Gym · Protein · Water</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="main-content-area flex-1 px-4 sm:px-8 lg:px-12 py-5 pb-28 md:pb-12 max-w-5xl w-full mx-auto">
+
+      <!-- ========================================================= -->
+      <!-- SECTION 1: HOME (DAILY UPDATE) — Built per Sketch 1 (1000122160.jpg) -->
+      <!-- ========================================================= -->
+      <section id="view-overview" class="view-section space-y-6">
+
+        <!-- Top Date & Greeting Header (Auto-updates daily & by time of day) -->
+        <div class="pb-3 border-b border-[#E5E2DC]">
+          <p id="current-date-label" class="text-xs font-mono-num uppercase tracking-wider text-[#686660]">
+            <span id="live-date-text">Wednesday, 28 October 2026</span> — <span class="font-semibold text-[#181816]">Daily Update.</span>
+          </p>
+          <h2 class="font-serif-editorial text-3xl sm:text-5xl text-[#181816] tracking-tight mt-1">
+            <span id="greeting-period">Good morning</span>, <span id="greeting-name">Ahad</span>.
+          </h2>
+          <p class="text-xs sm:text-sm text-[#686660] mt-1">
+            Unified All-in-One Dashboard · Live sync across Money, Investing, Gym, Protein &amp; Water.
+          </p>
+        </div>
+
+        <!-- ONLY ONE UNIFIED DASHBOARD IN HOME TAB -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5 sm:p-6 space-y-5 shadow-2xs">
+          <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+            <div>
+              <span class="text-[10px] font-mono-num uppercase tracking-wider text-[#686660]">ALL-IN-ONE LIVE OVERVIEW</span>
+              <h3 class="font-display-unique text-xl sm:text-2xl font-extrabold text-[#181816] mt-0.5">Dashboards</h3>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-50 emerald-badge text-emerald-700 text-xs font-mono-num font-medium">All Trackers Synced</span>
+          </div>
+
+          <!-- Unified Dashboard Grid (Money, Investing, Protein, Water, Gym) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- 1. Money & Saving Dashboard Tile -->
+            <div data-nav="money" class="nav-btn cursor-pointer p-4 rounded-xl border border-[#E5E2DC] hover:border-stone-400 transition home-subcard bg-[#F3F1EB]">
+              <div class="flex items-center justify-between text-xs text-[#686660]">
+                <span class="font-semibold uppercase font-mono-num tracking-wider">Money &amp; Saving</span>
+                <span class="text-[11px] text-[#96938C]">Money Tab →</span>
+              </div>
+              <div class="flex items-baseline justify-between mt-1.5">
+                <div>
+                  <span class="text-[10px] text-[#686660] block">Today&apos;s Spend</span>
+                  <div id="home-today-spend" class="font-mono-num text-2xl font-bold text-rose-700">₹680</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-[#686660] block">Net Saved</span>
+                  <div id="home-net-saving" class="font-mono-num text-lg font-bold text-emerald-700">₹52,700</div>
+                </div>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden mt-2.5">
+                <div id="home-savings-bar" class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: 62%"></div>
+              </div>
+              <p id="home-money-sub" class="text-[11px] text-[#686660] mt-1.5 font-mono-num">62% savings rate · 3 items today</p>
+            </div>
+
+            <!-- 2. Investing Portfolio Dashboard Tile -->
+            <div data-nav="investing" class="nav-btn cursor-pointer p-4 rounded-xl border border-[#E5E2DC] hover:border-stone-400 transition home-subcard bg-[#F3F1EB]">
+              <div class="flex items-center justify-between text-xs text-[#686660]">
+                <span class="font-semibold uppercase font-mono-num tracking-wider">Investing Portfolio</span>
+                <span class="text-[11px] text-[#96938C]">Invest Tab →</span>
+              </div>
+              <div class="flex items-baseline justify-between mt-1.5">
+                <div>
+                  <span class="text-[10px] text-[#686660] block">Current Value</span>
+                  <div id="home-invest-val" class="font-mono-num text-2xl font-bold text-[#181816]">₹4,85,000</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-[#686660] block">Total Profit</span>
+                  <div id="home-invest-profit" class="font-mono-num text-sm font-bold text-emerald-700">+₹77,500 (+19.0%)</div>
+                </div>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden mt-2.5">
+                <div class="h-full bg-indigo-600 rounded-full" style="width: 78%"></div>
+              </div>
+              <p id="home-invest-sip" class="text-[11px] text-[#686660] mt-1.5 font-mono-num">Monthly SIP: ₹20,000/mo · 4 holdings</p>
+            </div>
+
+            <!-- 3. Protein Intake Dashboard Tile -->
+            <div data-nav="protein" class="nav-btn cursor-pointer p-4 rounded-xl border border-[#E5E2DC] hover:border-stone-400 transition home-subcard bg-[#F3F1EB]">
+              <div class="flex items-center justify-between text-xs text-[#686660]">
+                <span class="font-semibold uppercase font-mono-num tracking-wider">Today&apos;s Protein</span>
+                <span class="text-[11px] text-[#96938C]">Protein Tab →</span>
+              </div>
+              <div class="font-mono-num text-2xl font-bold text-[#181816] mt-1.5">
+                <span id="home-protein-val">118</span>g <span class="text-sm font-normal text-[#96938C]">/ <span id="home-protein-goal">150</span>g</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden mt-2.5">
+                <div id="home-protein-bar" class="h-full bg-amber-600 rounded-full transition-all duration-300" style="width: 79%"></div>
+              </div>
+              <p id="home-protein-rem" class="text-[11px] text-amber-700 mt-1.5 font-mono-num">32g remaining for today&apos;s goal</p>
+            </div>
+
+            <!-- 4. Water Hydration Dashboard Tile -->
+            <div data-nav="water" class="nav-btn cursor-pointer p-4 rounded-xl border border-[#E5E2DC] hover:border-stone-400 transition home-subcard bg-[#F3F1EB]">
+              <div class="flex items-center justify-between text-xs text-[#686660]">
+                <span class="font-semibold uppercase font-mono-num tracking-wider">Water Hydration</span>
+                <span class="text-[11px] text-[#96938C]">Water Tab →</span>
+              </div>
+              <div class="font-mono-num text-2xl font-bold text-sky-700 mt-1.5">
+                <span id="home-water-val">3.00</span>L <span class="text-sm font-normal text-[#96938C]">/ 4.0L</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden mt-2.5">
+                <div id="home-water-bar" class="h-full bg-sky-600 rounded-full transition-all duration-300" style="width: 75%"></div>
+              </div>
+              <p id="home-water-glasses" class="text-[11px] text-[#686660] mt-1.5 font-mono-num">12 / 16 glasses drank today</p>
+            </div>
+
+            <!-- 5. Gym Workout & Overload Dashboard Tile (Full Width inside the single Dashboard) -->
+            <div data-nav="gym" class="sm:col-span-2 nav-btn cursor-pointer p-4 rounded-xl border border-[#E5E2DC] hover:border-stone-400 transition home-subcard bg-[#F3F1EB]">
+              <div class="flex items-center justify-between text-xs text-[#686660]">
+                <span class="font-semibold uppercase font-mono-num tracking-wider">Today&apos;s Gym &amp; Progressive Overload</span>
+                <span class="text-[11px] text-[#96938C]">Gym Tab →</span>
+              </div>
+              <div class="flex flex-wrap items-baseline justify-between gap-2 mt-1.5">
+                <div id="home-gym-split-name" class="font-mono-num text-2xl font-bold text-[#181816]">PUSH DAY</div>
+                <span id="home-gym-done-summary" class="text-xs font-mono-num font-semibold text-emerald-700">3 / 4 exercises completed · Progressive overload active</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden mt-2.5">
+                <div id="home-gym-bar" class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden container preserving reminder IDs so Home Tab displays ONLY the single unified Dashboard -->
+        <div class="hidden">
+          <span id="attention-open-count">5 open</span>
+          <button type="button" data-nav="reminders" class="nav-btn">View All Reminders →</button>
+          <div id="overview-attention-list"></div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 2: MONEY EXPENSE TRACKER — Customized with Unique Font, +++ Font Size & Menu -->
+      <!-- ========================================================= -->
+      <section id="view-money" class="view-section hidden space-y-5">
+
+        <!-- Top Bar: Unique Font "Money Tracker" + Search (🔍) + Money Menu (☰) + Income/Expense Transaction Button -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-2">
+          <div>
+            <p id="money-date-label" class="text-xs sm:text-sm font-mono-num uppercase tracking-wider text-[#686660]">
+              Tuesday, 27 October 2026 — <span id="money-greeting-period">Good morning</span>, <span id="money-greeting-name">Ahad</span>
+            </p>
+            <h2 class="font-money-unique text-3xl sm:text-5xl font-extrabold text-[#181816] mt-1">
+              Money Tracker
+            </h2>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="btn-toggle-money-search" type="button" class="w-11 h-11 rounded-2xl bg-white border border-[#E5E2DC] flex items-center justify-center text-lg shadow-2xs hover:border-stone-400 active:scale-95 transition" title="Search Income & Expenses">
+              🔍
+            </button>
+            <!-- Money Menu Button (Charts, Settings/Categories, Export, Action Reminders) -->
+            <button id="btn-open-money-menu" type="button" class="w-11 h-11 rounded-2xl bg-white border border-[#E5E2DC] flex items-center justify-center text-lg font-bold text-[#181816] shadow-2xs hover:border-stone-400 active:scale-95 transition" title="Money Menu: Charts, Settings & Export">
+              ☰
+            </button>
+            <!-- Transactions Button (Strictly Income & Expenses Only) -->
+            <button id="btn-open-money-tx" type="button" data-quick-modal="expense" class="px-4 py-3 rounded-2xl bg-[#181816] cta-primary-btn text-white text-sm font-bold shadow-xs active:scale-95 transition">
+              + Add Transaction
+            </button>
+          </div>
+        </div>
+
+        <!-- Collapsible Search Bar -->
+        <div id="money-search-bar" class="hidden">
+          <input id="money-search-input" type="text" placeholder="Search Income Book or Expenses Book (e.g. Bank, Food, Hair-cut)..." class="w-full px-4 py-3 rounded-2xl bg-white border border-[#E5E2DC] text-base focus:outline-none focus:border-stone-900" />
+        </div>
+
+        <!-- Month Switcher Card: "< October 2026 >" with +++ Font Size -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl px-5 py-4 flex items-center justify-between shadow-2xs">
+          <button id="btn-prev-month" type="button" class="w-10 h-10 rounded-xl hover:bg-stone-100 flex items-center justify-center text-blue-600 font-bold text-xl active:scale-95 transition" aria-label="Previous Month">
+            &#10094;
+          </button>
+          <div class="text-center">
+            <span id="money-month-display" class="text-xl sm:text-2xl font-extrabold text-[#181816]">October 2026</span>
+            <select id="money-month-select" class="sr-only" aria-label="Select Month">
+              <option value="0">January 2026</option>
+              <option value="1">February 2026</option>
+              <option value="2">March 2026</option>
+              <option value="3">April 2026</option>
+              <option value="4">May 2026</option>
+              <option value="5">June 2026</option>
+              <option value="6">July 2026</option>
+              <option value="7">August 2026</option>
+              <option value="8">September 2026</option>
+              <option value="9" selected>October 2026</option>
+              <option value="10">November 2026</option>
+              <option value="11">December 2026</option>
+            </select>
+          </div>
+          <button id="btn-next-month" type="button" class="w-10 h-10 rounded-xl hover:bg-stone-100 flex items-center justify-center text-blue-600 font-bold text-xl active:scale-95 transition" aria-label="Next Month">
+            &#10095;
+          </button>
+        </div>
+
+        <!-- 3-Column Summary Strip with +++ Larger Fonts -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-4">
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-3.5 sm:p-5 text-center shadow-2xs">
+            <span class="block text-sm sm:text-base font-semibold text-[#686660]">Income</span>
+            <div id="money-income-total" class="font-mono-num text-base sm:text-2xl font-extrabold text-emerald-700 mt-1">₹ 13,000</div>
+          </div>
+
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-3.5 sm:p-5 text-center shadow-2xs">
+            <span class="block text-sm sm:text-base font-semibold text-[#686660]">Expenses</span>
+            <div id="money-expense-total" class="font-mono-num text-base sm:text-2xl font-extrabold text-rose-700 mt-1">₹ 700</div>
+          </div>
+
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-3.5 sm:p-5 text-center shadow-2xs">
+            <span class="block text-sm sm:text-base font-semibold text-[#686660]">Saving</span>
+            <div id="money-net-total" class="font-mono-num text-base sm:text-2xl font-extrabold text-emerald-700 mt-1">₹ 12,300</div>
+            <span id="money-savings-rate-badge" class="hidden">95% Saved</span>
+          </div>
+        </div>
+
+        <!-- Side-by-Side 2-Column Book Layout with +++ Larger Text & 1-Click Edit -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-5 items-start">
+
+          <!-- LEFT: INCOME BOOK -->
+          <div class="income-book-box bg-[#E6F7EC] rounded-3xl p-3.5 sm:p-5 min-h-[340px] flex flex-col justify-between space-y-3">
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-base sm:text-xl font-extrabold text-emerald-800 leading-tight">Income Book</h3>
+                <button type="button" data-money-add="income" class="w-11 h-11 rounded-2xl bg-[#52B777] hover:bg-emerald-600 text-white text-2xl font-bold flex items-center justify-center shadow-xs shrink-0 active:scale-95 transition" title="Add Income">
+                  +
+                </button>
+              </div>
+
+              <!-- Stacked White Income Cards (Tap any card to 1-Click Edit) -->
+              <div id="money-income-details-list" class="space-y-3">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: EXPENSES BOOK -->
+          <div class="expenses-book-box bg-[#FCEAE8] rounded-3xl p-3.5 sm:p-5 min-h-[340px] flex flex-col justify-between space-y-3">
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-base sm:text-xl font-extrabold text-rose-800 leading-tight">Expenses<br class="sm:hidden" /> Book</h3>
+                <button type="button" data-money-add="expense" class="w-11 h-11 rounded-2xl bg-[#EC7263] hover:bg-rose-600 text-white text-2xl font-bold flex items-center justify-center shadow-xs shrink-0 active:scale-95 transition" title="Add Expense">
+                  +
+                </button>
+              </div>
+
+              <!-- Stacked White Expense Cards (Tap any card to 1-Click Edit) -->
+              <div id="money-expense-details-list" class="space-y-3">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Stored History Ledger (1-Click Easy Access Pop-up to Edit & Save) -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 sm:p-5 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-[#E5E2DC]">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm sm:text-base font-bold text-[#181816]">Stored Money History (1-Click Edit)</span>
+                <span id="money-today-total" class="font-mono-num text-sm font-bold text-rose-700">₹ 700</span>
+                <span id="today-expense-count-badge" class="rose-badge text-xs font-mono-num px-2 py-0.5 rounded bg-rose-50 text-rose-700">2 items</span>
+              </div>
+              <p class="text-xs text-[#686660]">Tap any transaction row below to open 1-click edit pop-up &amp; save</p>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button type="button" data-money-filter="all" class="money-filter-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-[#181816] text-white">All</button>
+              <button type="button" data-money-filter="today" class="money-filter-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-stone-100 text-stone-600">Today</button>
+              <button type="button" data-money-filter="expense" class="money-filter-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-stone-100 text-stone-600">Expenses</button>
+              <button type="button" data-money-filter="income" class="money-filter-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-stone-100 text-stone-600">Income</button>
+            </div>
+          </div>
+          <div id="money-today-details-list" class="hidden"></div>
+          <div id="money-transactions-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 3: INVESTING & SIPs — Real-Life Dashboard & 1-Click Pop-up -->
+      <!-- ========================================================= -->
+      <section id="view-investing" class="view-section hidden space-y-5">
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E2DC]">
+          <div>
+            <p class="text-xs font-mono-num uppercase tracking-wider text-emerald-700 font-semibold">REAL-LIFE WEALTH DASHBOARD</p>
+            <h3 class="font-serif-editorial text-2xl sm:text-4xl text-[#181816] mt-0.5">Investing &amp; SIP Portfolio</h3>
+          </div>
+          <button id="btn-open-invest-popup" type="button" data-quick-modal="sip" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs sm:text-sm font-semibold shadow-xs active:scale-95 transition">
+            + Log SIP / Asset
+          </button>
+        </div>
+
+        <!-- REAL-LIFE INVESTMENT DASHBOARD (4 Live Wealth KPI Cards) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 shadow-2xs">
+            <span class="text-[10px] sm:text-xs font-mono-num uppercase text-[#686660]">CURRENT VALUE</span>
+            <div id="invest-dash-current" class="font-mono-num text-lg sm:text-2xl font-bold text-[#181816] mt-1">₹6,45,000</div>
+            <span class="inline-block mt-1 text-[11px] font-mono-num text-emerald-700 font-medium">Live Portfolio</span>
+          </div>
+
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 shadow-2xs">
+            <span class="text-[10px] sm:text-xs font-mono-num uppercase text-[#686660]">INVESTED CAPITAL</span>
+            <div id="invest-dash-invested" class="font-mono-num text-lg sm:text-2xl font-bold text-[#181816] mt-1">₹5,40,000</div>
+            <span class="inline-block mt-1 text-[11px] font-mono-num text-[#686660]">Principal Deployed</span>
+          </div>
+
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 shadow-2xs">
+            <span class="text-[10px] sm:text-xs font-mono-num uppercase text-[#686660]">TOTAL PROFIT / GAIN</span>
+            <div id="invest-dash-profit" class="font-mono-num text-lg sm:text-2xl font-bold text-emerald-700 mt-1">+₹1,05,000</div>
+            <span id="invest-dash-profit-pct" class="inline-block mt-1 text-[11px] font-mono-num px-1.5 py-0.5 rounded bg-emerald-50 emerald-badge text-emerald-700 font-semibold">+19.4% Return</span>
+          </div>
+
+          <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 shadow-2xs">
+            <span class="text-[10px] sm:text-xs font-mono-num uppercase text-[#686660]">MONTHLY SIP BOOK</span>
+            <div id="invest-dash-sip" class="font-mono-num text-lg sm:text-2xl font-bold text-indigo-700 mt-1">₹25,000/mo</div>
+            <span id="invest-dash-proj" class="inline-block mt-1 text-[11px] font-mono-num text-[#686660]">10Y Est: ₹69.6L</span>
+          </div>
+        </div>
+
+        <!-- Real-Life Asset Allocation & Goal Progress Dashboard -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-sm font-semibold text-[#181816]">Real-Life Asset Allocation &amp; Compounding</span>
+              <p class="text-xs text-[#686660]">Diversified across Equity SIPs, Direct Stocks, Gold &amp; Emergency FD</p>
+            </div>
+            <span id="invest-header-total" class="font-mono-num text-xs sm:text-sm font-bold text-emerald-700">Total: ₹6,45,000</span>
+          </div>
+          <div class="w-full h-3.5 rounded-full overflow-hidden flex bg-stone-100">
+            <div class="bg-stone-900 h-full" style="width: 55%" title="Equity Mutual Funds (55%)"></div>
+            <div class="bg-emerald-600 h-full" style="width: 22%" title="Direct Stocks (22%)"></div>
+            <div class="bg-amber-500 h-full" style="width: 13%" title="Sovereign Gold (13%)"></div>
+            <div class="bg-stone-400 h-full" style="width: 10%" title="Emergency Liquid Fund (10%)"></div>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs text-[#686660]">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-stone-900"></span><span>Index/Flexi SIP (55%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span><span>Direct Stocks (22%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Gold / SGB (13%)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-stone-400"></span><span>Emergency FD (10%)</span></div>
+          </div>
+        </div>
+
+        <!-- Stored Holdings History with 1-Click Pop-up to Edit / Customize -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[#E5E2DC]">
+            <div>
+              <h4 class="text-sm sm:text-base font-semibold text-[#181816]">Stored Investment &amp; SIP History (1-Click Customize)</h4>
+              <p class="text-xs text-[#686660]">Tap any holding below to open 1-click pop-up, customize values &amp; save</p>
+            </div>
+            <span id="investing-holdings-count" class="text-xs font-mono-num text-[#686660]">4 holdings</span>
+          </div>
+          <div id="investing-holdings-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 4: GYM (PROGRESSIVE OVERLOAD) — Add Split on Top, Add Exercise on Split Header Right -->
+      <!-- ========================================================= -->
+      <section id="view-gym" class="view-section hidden space-y-6">
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E2DC]">
+          <div>
+            <p class="text-xs font-mono-num uppercase tracking-wider text-indigo-700 font-semibold">PROGRESSIVE OVERLOAD TRACKER</p>
+            <h3 class="font-serif-editorial text-2xl sm:text-3xl text-[#181816] mt-0.5">Gym Training &amp; Strength Log</h3>
+            <p class="text-xs text-[#686660] mt-0.5">Simple interface to track weights, splits &amp; progressive overload</p>
+          </div>
+          <!-- Top Right: Replaced Add Exercise with "+ Add Split" button as requested! -->
+          <button id="btn-open-add-split" type="button" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold shadow-xs active:scale-95 transition">
+            + Add Split
+          </button>
+        </div>
+
+        <!-- Split Selector -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-[#181816]">Split Button · Today I do:</span>
+            <span id="gym-sets-progress" class="text-xs font-mono-num px-2.5 py-1 rounded-full bg-stone-100 text-[#181816]">14 sets done</span>
+          </div>
+          <div id="gym-splits-button-bar" class="flex items-center gap-2 overflow-x-auto pb-1">
+            <button type="button" data-gym-split="fullbody" class="gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium bg-white border border-[#E5E2DC] text-[#181816]">
+              Full Body
+            </button>
+            <button type="button" data-gym-split="push" class="gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium bg-[#181816] text-white">
+              Push (Chest / Shoulder / Tri)
+            </button>
+            <button type="button" data-gym-split="pull" class="gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium bg-white border border-[#E5E2DC] text-[#181816]">
+              Pull (Back / Biceps)
+            </button>
+            <button type="button" data-gym-split="legs" class="gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium bg-white border border-[#E5E2DC] text-[#181816]">
+              Legs &amp; Core
+            </button>
+          </div>
+        </div>
+
+        <!-- Progressive Overload Exercises Card: "+ Add Exercise" placed on the RIGHT SIDE of Split Title! -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E5E2DC]">
+            <div>
+              <h4 id="gym-split-title" class="text-sm sm:text-base font-bold text-[#181816]">Full Body Workout — Strength &amp; Overload</h4>
+              <p class="text-[11px] text-[#686660]">Tap any exercise row to 1-click edit/customize sets, reps &amp; weight</p>
+            </div>
+            <!-- Right side of FullBody workout strength overload: "+ Add Exercise" button -->
+            <button type="button" data-quick-modal="gym" class="quick-modal-trigger px-3.5 py-2 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-semibold shadow-xs active:scale-95 transition">
+              + Add Exercise
+            </button>
+          </div>
+
+          <div id="gym-exercises-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 5: PROTEIN & FOOD — Built per Sketch 4 (1000122163.jpg) -->
+      <!-- ========================================================= -->
+      <section id="view-protein" class="view-section hidden space-y-6">
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E2DC]">
+          <div>
+            <p class="text-xs font-mono-num uppercase tracking-wider text-amber-700 font-semibold">MACROS &amp; RECOVERY</p>
+            <h3 class="font-serif-editorial text-2xl sm:text-3xl text-[#181816] mt-0.5">Protein &amp; Food Tracker</h3>
+          </div>
+          <button type="button" data-quick-modal="protein" class="quick-modal-trigger self-start sm:self-auto px-3.5 py-2 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-medium shadow-xs">
+            + Custom Meal Entry
+          </button>
+        </div>
+
+        <!-- Top Card: "Daily Protein Goal — Daily I select or decide Total Protein add" per Sketch 4 -->
+        <div class="bg-white border-2 border-amber-600/30 rounded-2xl p-5 space-y-4 shadow-2xs">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono-num uppercase tracking-wider text-[#686660]">DAILY PROTEIN TARGET</span>
+              <div class="font-mono-num text-3xl font-semibold text-[#181816] mt-1">
+                <span id="protein-meter-current">118</span>g <span class="text-sm font-normal text-[#96938C]">/ <span id="protein-meter-goal">150</span>g daily target</span>
+              </div>
+            </div>
+            <div class="text-right font-mono-num text-xs">
+              <span id="protein-meter-calories" class="font-medium text-[#181816]">1,530 kcal</span>
+              <span class="block text-emerald-700 font-medium">Protein Synthesis Active</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
+            <div id="protein-progress-bar" class="h-full bg-amber-600 transition-all duration-300" style="width: 79%"></div>
+          </div>
+
+          <!-- Custom Daily Protein Goal Input ("no fixed, i decide" per 1000122180.jpg) -->
+          <div class="pt-3 border-t border-[#E5E2DC] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <label for="custom-daily-protein-input" class="text-xs font-medium text-[#686660]">
+              Decide Today's Protein Goal (g):
+            </label>
+            <div class="flex items-center gap-2">
+              <input id="custom-daily-protein-input" type="number" min="10" max="500" value="150" placeholder="Enter grams (e.g. 135)" class="w-36 sm:w-44 px-3 py-1.5 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none focus:border-amber-600" />
+              <button id="btn-set-custom-protein-goal" type="button" class="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium shadow-2xs active:scale-95 transition">
+                Set Today's Goal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Grid: 6 High-Protein Cards marked "Not change" in Sketch 4 -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5">
+          <h4 class="text-xs font-mono-num uppercase tracking-wider text-[#686660] mb-3">1-Tap High-Protein Food Bank (Kept as Requested)</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            <button type="button" data-food-name="1 Scoop Whey Isolate" data-food-protein="24" data-food-kcal="120" data-food-slot="Post-Workout" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">Whey Scoop</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+24g · 120 kcal</span>
+            </button>
+            <button type="button" data-food-name="4 Whole Boiled Eggs" data-food-protein="24" data-food-kcal="280" data-food-slot="Breakfast" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">4 Whole Eggs</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+24g · 280 kcal</span>
+            </button>
+            <button type="button" data-food-name="Chicken Breast (150g)" data-food-protein="45" data-food-kcal="245" data-food-slot="Lunch / Dinner" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">Chicken 150g</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+45g · 245 kcal</span>
+            </button>
+            <button type="button" data-food-name="Low-Fat Paneer (100g)" data-food-protein="18" data-food-kcal="260" data-food-slot="Dinner" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">Paneer 100g</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+18g · 260 kcal</span>
+            </button>
+            <button type="button" data-food-name="Soya Chunks (50g dry)" data-food-protein="26" data-food-kcal="170" data-food-slot="Lunch" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">Soya Chunks</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+26g · 170 kcal</span>
+            </button>
+            <button type="button" data-food-name="Greek Yogurt / Skyr Bowl" data-food-protein="12" data-food-kcal="110" data-food-slot="Snack" class="quick-food-btn p-3 rounded-xl border border-[#E5E2DC] hover:border-stone-900 text-left transition active:scale-95">
+              <span class="block text-xs font-semibold text-[#181816]">Greek Yogurt</span>
+              <span class="block font-mono-num text-xs text-emerald-700 mt-1">+12g · 110 kcal</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom Box: "add only easy to assess with remove button, or before remove permission" per Sketch 4 -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[#E5E2DC]">
+            <div>
+              <h4 class="text-sm font-semibold text-[#181816]">Logged Meals Data</h4>
+              <p class="text-[11px] text-[#686660]">1-touch easy access remove button with permission prompt</p>
+            </div>
+            <span id="protein-meals-count" class="text-xs font-mono-num text-[#686660]">4 meals</span>
+          </div>
+          <div id="protein-meals-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 6: DEDICATED WATER TRACKER — Added per Sketch 1 ("Protein button, After add 'Water tracker' button") -->
+      <!-- ========================================================= -->
+      <section id="view-water" class="view-section hidden space-y-6">
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E2DC]">
+          <div>
+            <p class="text-xs font-mono-num uppercase tracking-wider text-sky-700 font-semibold">HYDRATION TRACKER</p>
+            <h3 class="font-serif-editorial text-2xl sm:text-3xl text-[#181816] mt-0.5">Daily Water Intake</h3>
+            <p class="text-xs text-[#686660] mt-0.5">Track your 4.0L hydration goal with 1-tap logging</p>
+          </div>
+        </div>
+
+        <!-- Big Visual Hydration Status Card -->
+        <div class="bg-white border-2 border-sky-500/30 rounded-2xl p-6 space-y-5 bg-gradient-to-b from-sky-50/40 to-transparent">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-sky-100 sky-badge flex items-center justify-center text-3xl shrink-0">
+                💧
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-num uppercase tracking-wider text-sky-800 font-semibold">TOTAL DRANK TODAY</span>
+                <div class="font-mono-num text-3xl sm:text-4xl font-semibold text-[#181816] mt-0.5">
+                  <span id="page-water-liters">3.00</span>L <span class="text-lg font-normal text-[#96938C]">/ <span id="page-water-goal">4.0</span>L</span>
+                </div>
+                <p id="page-water-glasses" class="text-xs text-[#686660] font-mono-num mt-0.5">12 / 16 glasses completed · 1.00L remaining</p>
+              </div>
+            </div>
+
+            <!-- 1-Tap Quick Hydration Buttons -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button type="button" data-water-delta="-250" class="water-btn px-3 py-2 rounded-xl border border-[#E5E2DC] text-xs font-mono-num text-[#686660] active:scale-95 transition">
+                -250ml
+              </button>
+              <button type="button" data-water-delta="250" class="water-btn px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-mono-num font-medium shadow-2xs active:scale-95 transition">
+                +250ml Glass
+              </button>
+              <button type="button" data-water-delta="500" class="water-btn px-4 py-2 rounded-xl bg-sky-800 hover:bg-sky-900 text-white text-xs font-mono-num font-medium shadow-2xs active:scale-95 transition">
+                +500ml Bottle
+              </button>
+              <button type="button" data-water-delta="1000" class="water-btn px-4 py-2 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-mono-num font-medium shadow-2xs active:scale-95 transition">
+                +1.0L Flask
+              </button>
+            </div>
+          </div>
+
+          <div class="w-full h-3.5 bg-stone-100 rounded-full overflow-hidden">
+            <div id="page-water-bar" class="h-full bg-sky-500 transition-all duration-300" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <!-- Water Intake History Log with Remove Button -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[#E5E2DC]">
+            <h4 class="text-sm font-semibold text-[#181816]">Today's Hydration Logs</h4>
+            <span class="text-xs font-mono-num text-[#686660]">Logged entries</span>
+          </div>
+          <div id="water-log-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 7: REMINDERS                                      -->
+      <!-- ========================================================= -->
+      <section id="view-reminders" class="view-section hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E2DC]">
+          <div>
+            <span class="text-[11px] font-mono-num uppercase tracking-wider text-[#686660]">UNIFIED REMINDERS · 1-CLICK EDIT</span>
+            <h3 class="font-serif-editorial text-2xl sm:text-3xl text-[#181816] mt-0.5">Action Items Across Money, Gym &amp; Diet</h3>
+          </div>
+          <button id="btn-add-new-reminder" type="button" class="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-semibold shadow-xs">
+            + Add Action Reminder
+          </button>
+        </div>
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5">
+          <div id="full-reminders-list" class="divide-y divide-[#E5E2DC]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- SECTION 8: SETTINGS & TARGETS                             -->
+      <!-- ========================================================= -->
+      <section id="view-settings" class="view-section hidden space-y-6">
+        <div class="pb-4 border-b border-[#E5E2DC]">
+          <span class="text-[11px] font-mono-num uppercase tracking-wider text-[#686660]">PERSONALIZATION</span>
+          <h3 class="font-serif-editorial text-2xl sm:text-3xl text-[#181816] mt-0.5">Personal Targets &amp; Profile</h3>
+        </div>
+
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5 max-w-lg space-y-4">
+          <h4 class="text-sm font-semibold text-[#181816]">Personalize Your Setup</h4>
+          <div>
+            <label class="block text-xs font-medium text-[#686660] mb-1" for="input-user-name">Your Display Name</label>
+            <input id="input-user-name" type="text" value="Ahad" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm focus:outline-none focus:border-stone-900" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-[#686660] mb-1" for="input-protein-goal">Daily Protein Goal (g)</label>
+              <input id="input-protein-goal" type="number" value="150" min="50" max="350" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm font-mono-num focus:outline-none focus:border-stone-900" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-[#686660] mb-1" for="input-water-goal">Daily Water Goal (ml)</label>
+              <input id="input-water-goal" type="number" value="4000" min="1500" max="8000" step="250" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm font-mono-num focus:outline-none focus:border-stone-900" />
+            </div>
+          </div>
+          <button id="btn-save-settings" type="button" class="cta-primary-btn w-full py-2.5 rounded-xl bg-[#181816] text-white text-xs font-medium hover:bg-stone-800 transition">
+            Save Personalization Settings
+          </button>
+        </div>
+
+        <!-- Personal Use: Auto-Save Storage, Backup & Start Fresh Card -->
+        <div class="bg-white border border-[#E5E2DC] rounded-2xl p-5 max-w-lg space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-sm font-semibold text-[#181816]">Personal Device Storage &amp; Backup</h4>
+              <p class="text-xs text-[#686660] mt-0.5">All changes auto-save on your phone/browser automatically.</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-50 emerald-badge text-emerald-700 text-[11px] font-mono-num font-semibold">Auto-Save ON</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            <button id="btn-backup-json" type="button" class="py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow-2xs transition">
+              📤 Download Full Backup (.json)
+            </button>
+            <label for="input-restore-json" class="py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#181816] text-xs font-semibold text-center cursor-pointer border border-[#E5E2DC] transition">
+              📥 Restore from Backup (.json)
+              <input id="input-restore-json" type="file" accept=".json,application/json" class="hidden" />
+            </label>
+          </div>
+
+          <div class="pt-3 border-t border-[#E5E2DC] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-semibold text-[#181816]">Ready to start with ₹0 &amp; empty logs?</p>
+              <p class="text-[11px] text-[#686660]">Clears sample demo items so you can log only your real data.</p>
+            </div>
+            <button id="btn-clear-demo-data" type="button" class="px-3.5 py-2 rounded-xl bg-rose-50 rose-badge text-rose-700 border border-rose-200 text-xs font-semibold hover:bg-rose-100 shrink-0 transition">
+              🧹 Start Fresh (Clear Demo)
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- MOBILE FIXED BOTTOM NAVIGATION BAR — Exactly matches Sketch 1: [Home] [Money] [Invest] [Gym] [Protein] + Add Water button -->
+    <nav class="mobile-bottom-nav md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#E5E2DC] px-1 py-1.5 flex items-center justify-around select-none" aria-label="Mobile Bottom Navigation">
+      <button type="button" data-nav="overview" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" data-nav="money" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span>Money</span>
+      </button>
+      <button type="button" data-nav="investing" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span>Invest</span>
+      </button>
+      <button type="button" data-nav="gym" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6.5 6.5 17.5 17.5"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>
+        <span>Gym</span>
+      </button>
+      <button type="button" data-nav="protein" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        <span>Protein</span>
+      </button>
+      <!-- Dedicated Water Button added right after Protein button per Sketch 1 -->
+      <button type="button" data-nav="water" class="nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition text-sky-700">
+        <span class="text-sm leading-none mb-0.5">💧</span>
+        <span>Water</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- UNIFIED QUICK-LOG MODAL                                   -->
+  <!-- ========================================================= -->
+  <div id="quick-log-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-xl">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <h3 id="modal-title" class="font-serif-editorial text-2xl text-[#181816]">Quick Log Entry</h3>
+        <button id="btn-close-modal" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Mode Selector Pills -->
+      <div class="grid grid-cols-5 gap-1 bg-[#F6F5F0] p-1 rounded-xl text-[11px]">
+        <button type="button" data-modal-tab="today-expense" class="modal-tab-btn py-1.5 rounded-lg font-medium bg-white shadow-xs text-[#181816]">Today ₹</button>
+        <button type="button" data-modal-tab="income" class="modal-tab-btn py-1.5 rounded-lg font-medium text-[#686660]">Income</button>
+        <button type="button" data-modal-tab="expense" class="modal-tab-btn py-1.5 rounded-lg font-medium text-[#686660]">Expense</button>
+        <button type="button" data-modal-tab="protein" class="modal-tab-btn py-1.5 rounded-lg font-medium text-[#686660]">Protein</button>
+        <button type="button" data-modal-tab="gym" class="modal-tab-btn py-1.5 rounded-lg font-medium text-[#686660]">Gym/SIP</button>
+      </div>
+
+      <form id="quick-log-form" class="space-y-3">
+        <div>
+          <label id="modal-label-title" class="block text-xs font-medium text-[#686660] mb-1" for="modal-input-title">Description / Name</label>
+          <input id="modal-input-title" type="text" required placeholder="e.g., Eggs & Chicken, Freelance Payout" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm focus:outline-none focus:border-stone-900" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label id="modal-label-amount" class="block text-xs font-medium text-[#686660] mb-1" for="modal-input-amount">Amount (₹)</label>
+            <input id="modal-input-amount" type="number" required placeholder="350" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm font-mono-num focus:outline-none focus:border-stone-900" />
+          </div>
+          <div>
+            <label id="modal-label-sub" class="block text-xs font-medium text-[#686660] mb-1" for="modal-input-sub">Category / Tag</label>
+            <input id="modal-input-sub" type="text" placeholder="Food & Diet" class="w-full px-3.5 py-2 rounded-lg border border-[#E5E2DC] text-sm focus:outline-none focus:border-stone-900" />
+          </div>
+        </div>
+        <button type="submit" class="cta-primary-btn w-full py-2.5 rounded-xl bg-[#181816] hover:bg-stone-800 text-white text-xs sm:text-sm font-medium transition">
+          Save Entry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- UNIVERSAL REMOVE PERMISSION CONFIRMATION MODAL            -->
+  <!-- ========================================================= -->
+  <div id="permission-remove-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-sm rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl">
+      <div class="flex items-start gap-3">
+        <div class="w-9 h-9 rounded-xl bg-rose-50 rose-badge text-rose-600 flex items-center justify-center shrink-0 font-bold">
+          !
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-[#181816]">Confirm Removal</h4>
+          <p id="permission-modal-message" class="text-xs text-[#686660] mt-1 leading-relaxed">
+            Are you sure you want to remove this entry?
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#E5E2DC]">
+        <button id="btn-cancel-remove" type="button" class="px-4 py-2 rounded-xl border border-[#E5E2DC] text-xs font-medium text-[#686660] hover:text-[#181816] transition">
+          Cancel
+        </button>
+        <button id="btn-confirm-remove" type="button" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium shadow-xs transition">
+          Yes, Remove
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 1. MONEY TAB TRANSACTION MODAL (STRICTLY INCOME & EXPENSES ONLY) -->
+  <!-- ========================================================= -->
+  <div id="money-only-tx-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <h3 id="money-only-modal-title" class="font-money-unique text-xl font-bold text-[#181816]">Add Money Transaction</h3>
+        <button id="btn-close-money-only-modal" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+      </div>
+
+      <!-- Strictly 2 Tabs: Income & Expenses Only -->
+      <div class="grid grid-cols-2 gap-2 bg-[#F6F5F0] p-1.5 rounded-xl text-sm">
+        <button type="button" data-money-tx-type="income" class="money-tx-type-btn py-2 rounded-lg font-bold bg-emerald-600 text-white shadow-xs transition">
+          + Income Book
+        </button>
+        <button type="button" data-money-tx-type="expense" class="money-tx-type-btn py-2 rounded-lg font-bold text-[#686660] transition">
+          - Expenses Book
+        </button>
+      </div>
+
+      <form id="money-only-tx-form" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-[#686660] mb-1" for="money-tx-title">Title / Source</label>
+          <input id="money-tx-title" type="text" required placeholder="e.g., Bank, Salary, Daily Meals" class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E2DC] text-base focus:outline-none focus:border-stone-900" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#686660] mb-1" for="money-tx-amount">Amount (₹)</label>
+            <input id="money-tx-amount" type="number" required placeholder="500" class="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E2DC] text-base font-mono-num focus:outline-none focus:border-stone-900" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#686660] mb-1" for="money-tx-category">Category</label>
+            <select id="money-tx-category" class="w-full px-3 py-2.5 rounded-xl border border-[#E5E2DC] text-sm font-medium focus:outline-none focus:border-stone-900">
+              <!-- Populated dynamically from state.incomeCategories or state.expenseCategories -->
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-[#181816] cta-primary-btn text-white text-sm font-bold shadow-sm transition">
+          Save Transaction
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 2. MONEY TAB MENU MODAL (CHARTS, SETTINGS/CATEGORIES, EXPORT, ACTION REMINDERS) -->
+  <!-- ========================================================= -->
+  <div id="money-menu-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl max-h-[88vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <div>
+          <h3 class="font-money-unique text-xl font-bold text-[#181816]">Money Tracker Menu</h3>
+          <p class="text-xs text-[#686660]">Charts · Category Settings · Export · Action Reminders</p>
+        </div>
+        <button id="btn-close-money-menu" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+      </div>
+
+      <!-- Menu Feature Tabs: Charts | Settings | Export + Action Reminders Button -->
+      <div class="grid grid-cols-4 gap-1.5 bg-[#F6F5F0] p-1 rounded-xl text-xs font-semibold">
+        <button type="button" data-money-menu-tab="charts" class="money-menu-tab-btn py-2 rounded-lg bg-white text-[#181816] shadow-2xs">📊 Charts</button>
+        <button type="button" data-money-menu-tab="settings" class="money-menu-tab-btn py-2 rounded-lg text-[#686660]">⚙️ Settings</button>
+        <button type="button" data-money-menu-tab="export" class="money-menu-tab-btn py-2 rounded-lg text-[#686660]">📥 Export</button>
+        <button id="btn-menu-goto-reminders" type="button" class="py-2 rounded-lg bg-amber-500/20 text-amber-800 font-bold">🔔 Reminders</button>
+      </div>
+
+      <!-- TAB 1: CHARTS -->
+      <div id="money-menu-panel-charts" class="space-y-4 pt-1">
+        <div class="p-4 rounded-2xl bg-[#F6F5F0] border border-[#E5E2DC] space-y-3">
+          <h4 class="text-xs font-mono-num uppercase tracking-wider text-[#686660]">INCOME VS EXPENSES VISUAL CHART</h4>
+          <div id="money-chart-bars" class="space-y-3">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#F6F5F0] border border-[#E5E2DC] space-y-2.5">
+          <h4 class="text-xs font-mono-num uppercase tracking-wider text-[#686660]">CATEGORY BREAKDOWN</h4>
+          <div id="money-category-chart-list" class="space-y-2 text-xs">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: SETTINGS (INCOME CATEGORIES ADD & EXPENSES CATEGORIES ADD) -->
+      <div id="money-menu-panel-settings" class="hidden space-y-4 pt-1">
+        <!-- Income Categories Manager -->
+        <div class="p-4 rounded-2xl border border-[#E5E2DC] space-y-3">
+          <h4 class="text-sm font-bold text-emerald-700">Income Categories</h4>
+          <div id="settings-income-cats-list" class="flex flex-wrap gap-1.5">
+            <!-- Populated by JS -->
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <input id="input-new-income-cat" type="text" placeholder="New income category (e.g. Bonus, Rent)" class="flex-1 px-3 py-2 rounded-xl border border-[#E5E2DC] text-xs focus:outline-none" />
+            <button id="btn-add-income-cat" type="button" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0">
+              + Income Categories Add
+            </button>
+          </div>
+        </div>
+
+        <!-- Expenses Categories Manager -->
+        <div class="p-4 rounded-2xl border border-[#E5E2DC] space-y-3">
+          <h4 class="text-sm font-bold text-rose-700">Expenses Categories</h4>
+          <div id="settings-expense-cats-list" class="flex flex-wrap gap-1.5">
+            <!-- Populated by JS -->
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <input id="input-new-expense-cat" type="text" placeholder="New expense category (e.g. Supplements)" class="flex-1 px-3 py-2 rounded-xl border border-[#E5E2DC] text-xs focus:outline-none" />
+            <button id="btn-add-expense-cat" type="button" class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shrink-0">
+              + Expenses Categories Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: EXPORT -->
+      <div id="money-menu-panel-export" class="hidden space-y-3 pt-1">
+        <p class="text-xs text-[#686660]">Export your Income Book &amp; Expenses Book data as a spreadsheet file or copy summary text:</p>
+        <button id="btn-export-money-csv" type="button" class="w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition">
+          📥 Download CSV Report (.csv)
+        </button>
+        <button id="btn-copy-money-summary" type="button" class="w-full py-3 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-bold shadow-xs transition">
+          📋 Copy Monthly Summary to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 3. DEDICATED INVEST TAB POP-UP WINDOW (LOG SIP / ASSET)   -->
+  <!-- ========================================================= -->
+  <div id="invest-popup-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <div>
+          <h3 class="font-serif-editorial text-2xl text-[#181816]">Log New SIP / Investment Asset</h3>
+          <p class="text-xs text-[#686660]">Add to your real-life wealth portfolio</p>
+        </div>
+        <button id="btn-close-invest-popup" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+      </div>
+
+      <form id="invest-popup-form" class="space-y-3">
+        <div>
+          <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-name">Asset / Mutual Fund Name</label>
+          <input id="invest-input-name" type="text" required placeholder="e.g., Nippon India Small Cap / Gold ETF" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-type">Asset Type</label>
+            <select id="invest-input-type" class="w-full px-3 py-2 rounded-xl border border-[#E5E2DC] text-sm focus:outline-none">
+              <option value="Equity SIP">Equity SIP</option>
+              <option value="Stocks">Direct Stocks</option>
+              <option value="Gold / SGB">Gold / SGB</option>
+              <option value="Safe Reserve">Emergency FD / Liquid</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-sip">Monthly SIP (₹)</label>
+            <input id="invest-input-sip" type="number" value="5000" placeholder="5000" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-invested">Invested Capital (₹)</label>
+            <input id="invest-input-invested" type="number" required placeholder="40000" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-value">Current Value (₹)</label>
+            <input id="invest-input-value" type="number" required placeholder="48500" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-[#686660] mb-1" for="invest-input-returns">Return / XIRR Badge</label>
+          <input id="invest-input-returns" type="text" placeholder="e.g., +18.5% XIRR" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs sm:text-sm font-semibold shadow-sm transition">
+          Save to Portfolio
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 4. ADD GYM SPLIT POP-UP MODAL                             -->
+  <!-- ========================================================= -->
+  <div id="gym-split-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-sm rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <h3 class="font-serif-editorial text-2xl text-[#181816]">Add New Workout Split</h3>
+        <button id="btn-close-split-modal" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+      </div>
+      <form id="gym-split-form" class="space-y-3">
+        <div>
+          <label class="block text-xs font-medium text-[#686660] mb-1" for="input-new-split-name">Split Name</label>
+          <input id="input-new-split-name" type="text" required placeholder="e.g., Arms & Abs, Upper Body, Chest Day" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm focus:outline-none" />
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">
+          + Create Workout Split
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 5. UNIVERSAL 1-CLICK EDIT & CUSTOMIZE POP-UP MODAL (ALL TABS) -->
+  <!-- ========================================================= -->
+  <div id="universal-edit-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl border border-[#E5E2DC] p-5 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#E5E2DC] pb-3">
+        <div>
+          <span id="uni-edit-badge" class="text-[10px] font-mono-num uppercase tracking-wider px-2 py-0.5 rounded bg-stone-100 text-[#686660]">1-CLICK CUSTOMIZE</span>
+          <h3 id="uni-edit-heading" class="font-serif-editorial text-2xl text-[#181816] mt-0.5">Edit &amp; Customize Entry</h3>
+        </div>
+        <button id="btn-close-uni-edit" type="button" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+      </div>
+
+      <form id="universal-edit-form" class="space-y-3">
+        <div>
+          <label id="uni-label-1" class="block text-xs font-medium text-[#686660] mb-1" for="uni-input-1">Name / Title</label>
+          <input id="uni-input-1" type="text" required class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label id="uni-label-2" class="block text-xs font-medium text-[#686660] mb-1" for="uni-input-2">Value / Amount</label>
+            <input id="uni-input-2" type="number" step="any" required class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+          <div>
+            <label id="uni-label-3" class="block text-xs font-medium text-[#686660] mb-1" for="uni-input-3">Category / Detail</label>
+            <input id="uni-input-3" type="text" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm focus:outline-none" />
+          </div>
+        </div>
+        <div id="uni-extra-row" class="hidden grid-cols-2 gap-3">
+          <div>
+            <label id="uni-label-4" class="block text-xs font-medium text-[#686660] mb-1" for="uni-input-4">Extra Field 1</label>
+            <input id="uni-input-4" type="text" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+          <div>
+            <label id="uni-label-5" class="block text-xs font-medium text-[#686660] mb-1" for="uni-input-5">Extra Field 2</label>
+            <input id="uni-input-5" type="text" class="w-full px-3.5 py-2 rounded-xl border border-[#E5E2DC] text-sm font-mono-num focus:outline-none" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-[#E5E2DC]">
+          <button id="btn-uni-delete" type="button" class="px-3.5 py-2.5 rounded-xl bg-rose-50 rose-badge text-rose-700 text-xs font-semibold hover:bg-rose-100 transition">
+            Delete Item
+          </button>
+          <div class="flex items-center gap-2">
+            <button id="btn-uni-cancel" type="button" class="px-4 py-2.5 rounded-xl border border-[#E5E2DC] text-xs font-medium text-[#686660]">
+              Cancel
+            </button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#181816] cta-primary-btn text-white text-xs font-semibold shadow-sm transition">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- TOAST NOTIFICATION -->
+  <div id="toast-banner" class="fixed bottom-20 md:bottom-6 right-4 z-50 px-4 py-2.5 rounded-xl bg-[#181816] text-white text-xs font-medium shadow-lg opacity-0 pointer-events-none transition-opacity duration-200">
+    Saved!
+  </div>
+
+  <script>
+    (function () {
+      // Complete state architecture
+      const state = {
+        userName: 'Ahad',
+        activeView: 'overview',
+        moneyFilter: 'all',
+        gymSplit: 'push',
+        modalMode: 'today-expense',
+        proteinGoal: 150,
+        waterMl: 3000,
+        waterGoalMl: 4000,
+        darkMode: false,
+        pendingRemoval: null, // { type: 'meal' | 'tx' | 'holding' | 'gym' | 'water', id: '...' }
+
+        reminders: [
+          { id: 'r1', text: 'Monthly SIP top-up — Nifty 50 Index Fund due in 5 days.', tag: 'SIP', date: '01 Nov', done: false },
+          { id: 'r2', text: 'Hit remaining 32g protein target for today (Dinner + Post-workout).', tag: 'PROTEIN', date: 'Today', done: false },
+          { id: 'r3', text: 'Complete Push Day — Incline DB Press progressive overload target.', tag: 'GYM', date: 'Today', done: false },
+          { id: 'r4', text: 'Drink remaining 1.0L water to hit 4.0L daily hydration target.', tag: 'WATER', date: 'Today', done: false },
+          { id: 'r5', text: 'Review October utility & grocery expenses.', tag: 'MONEY', date: '30 Oct', done: false }
+        ],
+
+        monthIndex: 9,
+        moneySearch: '',
+        moneyTxMode: 'income',
+        incomeCategories: ['Total Saving', 'Salary', 'Freelance', 'Business', 'Bonus'],
+        expenseCategories: ['Food', 'Hair-cut', 'Groceries', 'Gym & Diet', 'Rent', 'Transport'],
+        editingTarget: null, // { domain, id }
+        splitLabels: {
+          fullbody: 'Full Body Workout — Strength & Overload',
+          push: 'Push Day — Chest, Shoulders & Triceps',
+          pull: 'Pull Day — Back, Rear Delts & Biceps',
+          legs: 'Legs & Core — Quads, Hamstrings & Calves'
+        },
+        transactions: [
+          // Income Book items matching 1000122179.jpg
+          { id: 't1', title: 'Bank', amount: 13000, type: 'income', category: 'Total Saving', date: 'Oct 2026', isToday: false, checked: false },
+          // Expenses Book items matching 1000122179.jpg
+          { id: 't2', title: 'Daily Meals & Diet', amount: 500, type: 'expense', category: 'Food', date: 'Today', isToday: true, checked: false },
+          { id: 't3', title: 'Salon & Grooming', amount: 200, type: 'expense', category: 'Hair-cut', date: 'Today', isToday: true, checked: false }
+        ],
+
+        holdings: [
+          { id: 'h1', name: 'UTI Nifty 50 Index Fund (Direct Growth)', type: 'Equity SIP', sip: 10000, invested: 235000, value: 285000, returns: '+17.2% XIRR' },
+          { id: 'h2', name: 'Parag Parikh Flexi Cap Fund (Direct)', type: 'Equity SIP', sip: 10000, invested: 155000, value: 195000, returns: '+19.8% XIRR' },
+          { id: 'h3', name: 'Direct Bluechip & Midcap Equity Basket', type: 'Stocks', sip: 5000, invested: 95000, value: 105000, returns: '+14.1% CAGR' },
+          { id: 'h4', name: 'Sovereign Gold Bonds + Emergency Liquid FD', type: 'Safe Reserve', sip: 0, invested: 55000, value: 60000, returns: '+8.4% p.a.' }
+        ],
+
+        // Progressive Overload Gym structure from Sketch 3
+        gymSplits: {
+          push: [
+            { id: 'g1', name: 'Incline Dumbbell Bench Press', sets: 4, reps: 10, weightKg: 27.5, prevKg: 25.0, done: true },
+            { id: 'g2', name: 'Seated Overhead DB Shoulder Press', sets: 3, reps: 10, weightKg: 20.0, prevKg: 17.5, done: true },
+            { id: 'g3', name: 'Cable Lateral Raises', sets: 4, reps: 15, weightKg: 10.0, prevKg: 10.0, done: true },
+            { id: 'g4', name: 'Rope Tricep Pushdowns', sets: 3, reps: 12, weightKg: 25.0, prevKg: 22.5, done: true }
+          ],
+          pull: [
+            { id: 'g5', name: 'Weighted Pull-Ups / Lat Pulldown', sets: 4, reps: 10, weightKg: 65.0, prevKg: 60.0, done: false },
+            { id: 'g6', name: 'Chest-Supported Barbell Row', sets: 3, reps: 10, weightKg: 60.0, prevKg: 55.0, done: false },
+            { id: 'g7', name: 'Face Pulls (Rear Delts)', sets: 4, reps: 15, weightKg: 20.0, prevKg: 17.5, done: false },
+            { id: 'g8', name: 'Incline Dumbbell Curls', sets: 3, reps: 12, weightKg: 12.5, prevKg: 10.0, done: false }
+          ],
+          legs: [
+            { id: 'g9', name: 'Barbell Back Squat', sets: 4, reps: 8, weightKg: 90.0, prevKg: 85.0, done: false },
+            { id: 'g10', name: 'Romanian Deadlifts (Hamstrings)', sets: 3, reps: 10, weightKg: 80.0, prevKg: 75.0, done: false },
+            { id: 'g11', name: 'Seated Leg Extensions', sets: 3, reps: 15, weightKg: 55.0, prevKg: 50.0, done: false },
+            { id: 'g12', name: 'Standing Calf Raises', sets: 4, reps: 15, weightKg: 70.0, prevKg: 65.0, done: false }
+          ],
+          fullbody: [
+            { id: 'g13', name: 'Barbell Deadlift', sets: 3, reps: 6, weightKg: 110.0, prevKg: 105.0, done: false },
+            { id: 'g14', name: 'Flat Dumbbell Press', sets: 3, reps: 10, weightKg: 30.0, prevKg: 27.5, done: false },
+            { id: 'g15', name: 'Neutral Grip Pull-Ups', sets: 3, reps: 8, weightKg: 0, prevKg: 0, done: false },
+            { id: 'g16', name: 'Bulgarian Split Squats', sets: 3, reps: 10, weightKg: 16.0, prevKg: 14.0, done: false }
+          ]
+        },
+
+        meals: [
+          { id: 'm1', name: '4 Whole Boiled Eggs + Oats & Banana', slot: 'Breakfast · 8:30 AM', protein: 30, kcal: 490 },
+          { id: 'm2', name: '150g Grilled Chicken Breast + Rice & Dal', slot: 'Lunch · 1:30 PM', protein: 52, kcal: 680 },
+          { id: 'm3', name: 'Greek Yogurt + Roasted Peanuts & Creatine', slot: 'Pre-Workout · 5:15 PM', protein: 12, kcal: 240 },
+          { id: 'm4', name: '1 Scoop Whey Isolate in Water', slot: 'Post-Workout · 7:30 PM', protein: 24, kcal: 120 }
+        ],
+
+        waterLogs: [
+          { id: 'w1', amountMl: 500, time: '8:00 AM', label: 'Morning Hydration Bottle' },
+          { id: 'w2', amountMl: 250, time: '11:15 AM', label: 'Mid-Morning Glass' },
+          { id: 'w3', amountMl: 500, time: '1:45 PM', label: 'Post-Lunch Bottle' },
+          { id: 'w4', amountMl: 750, time: '4:30 PM', label: 'Pre-Workout Hydration' },
+          { id: 'w5', amountMl: 1000, time: '7:15 PM', label: 'Post-Gym Recovery Flask' }
+        ]
+      };
+
+      function formatINR(num) {
+        return '₹' + Number(num).toLocaleString('en-IN');
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById('toast-banner');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        setTimeout(() => {
+          toast.style.opacity = '0';
+        }, 2200);
+      }
+
+      function toggleDarkMode() {
+        state.darkMode = !state.darkMode;
+        document.body.classList.toggle('dark-mode', state.darkMode);
+        document.querySelectorAll('.dark-mode-icon').forEach(el => {
+          el.textContent = state.darkMode ? '☀️' : '🌙';
+        });
+        document.querySelectorAll('.dark-mode-label').forEach(el => {
+          el.textContent = state.darkMode ? 'Light' : 'Dark';
+        });
+        savePersistedState();
+        showToast(state.darkMode ? 'Dark mode enabled' : 'Light mode enabled');
+      }
+
+      // Universal Permission Dialog for Remove
+      function askPermissionToRemove(type, id, labelText) {
+        state.pendingRemoval = { type, id };
+        const msgEl = document.getElementById('permission-modal-message');
+        msgEl.textContent = 'Are you sure you want to remove "' + labelText + '"?';
+        const modal = document.getElementById('permission-remove-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      function closePermissionModal() {
+        state.pendingRemoval = null;
+        const modal = document.getElementById('permission-remove-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      function confirmPermissionRemove() {
+        if (!state.pendingRemoval) return;
+        const { type, id } = state.pendingRemoval;
+
+        if (type === 'clear_demo') {
+          state.transactions = [];
+          state.holdings = [];
+          state.meals = [];
+          state.waterLogs = [];
+          state.waterMl = 0;
+          state.reminders = [];
+          Object.keys(state.gymSplits).forEach(k => {
+            state.gymSplits[k] = [];
+          });
+          showToast('All demo data cleared! Ready for your personal entries.');
+        } else if (type === 'meal') {
+          const item = state.meals.find(m => m.id === id);
+          state.meals = state.meals.filter(m => m.id !== id);
+          showToast(item ? 'Removed meal: ' + item.name : 'Meal removed');
+        } else if (type === 'tx') {
+          const tx = state.transactions.find(t => t.id === id);
+          state.transactions = state.transactions.filter(t => t.id !== id);
+          showToast(tx ? 'Removed transaction: ' + tx.title : 'Transaction removed');
+        } else if (type === 'holding') {
+          const h = state.holdings.find(x => x.id === id);
+          state.holdings = state.holdings.filter(x => x.id !== id);
+          showToast(h ? 'Removed asset: ' + h.name : 'Asset removed');
+        } else if (type === 'gym') {
+          const splitList = state.gymSplits[state.gymSplit] || [];
+          const ex = splitList.find(x => x.id === id);
+          state.gymSplits[state.gymSplit] = splitList.filter(x => x.id !== id);
+          showToast(ex ? 'Removed exercise: ' + ex.name : 'Exercise removed');
+        } else if (type === 'water') {
+          const w = state.waterLogs.find(x => x.id === id);
+          if (w) {
+            state.waterMl = Math.max(0, state.waterMl - w.amountMl);
+            state.waterLogs = state.waterLogs.filter(x => x.id !== id);
+            showToast('Removed ' + w.amountMl + 'ml water entry');
+          }
+        }
+
+        closePermissionModal();
+        renderAll();
+      }
+
+      // Switch active tab/view
+      function switchView(viewName) {
+        state.activeView = viewName;
+        document.querySelectorAll('.view-section').forEach(sec => {
+          sec.classList.add('hidden');
+        });
+        const target = document.getElementById('view-' + viewName);
+        if (target) target.classList.remove('hidden');
+
+        // Highlight active nav buttons in desktop sidebar & mobile bottom nav
+        document.querySelectorAll('.nav-btn[data-nav]').forEach(btn => {
+          const isMatch = btn.getAttribute('data-nav') === viewName;
+          if (btn.closest('.desktop-sidebar') || btn.closest('#mobile-drawer-backdrop')) {
+            btn.className = 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition ' +
+              (isMatch ? 'bg-white text-[#181816] shadow-xs border border-[#E5E2DC]' : 'text-[#686660] hover:bg-stone-200/50 hover:text-[#181816]');
+          } else if (btn.closest('.mobile-bottom-nav')) {
+            btn.className = 'nav-btn flex flex-col items-center justify-center py-1 px-1.5 rounded-lg text-[10px] font-medium transition ' +
+              (isMatch ? 'text-[#181816] font-semibold bg-stone-200/70' : 'text-[#96938C] hover:text-[#181816]');
+          }
+        });
+
+        closeMobileDrawer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      
+      const STORAGE_KEY = 'ahad_personal_life_os_v1';
+
+      function loadPersistedState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const saved = JSON.parse(raw);
+          if (!saved || typeof saved !== 'object') return;
+          const keys = [
+            'userName', 'proteinGoal', 'waterMl', 'waterGoalMl', 'darkMode',
+            'reminders', 'monthIndex', 'incomeCategories', 'expenseCategories',
+            'splitLabels', 'transactions', 'holdings', 'gymSplits', 'meals', 'waterLogs', 'gymSplit'
+          ];
+          keys.forEach(k => {
+            if (saved[k] !== undefined) state[k] = saved[k];
+          });
+          if (state.darkMode) {
+            document.body.classList.add('dark-mode');
+            document.querySelectorAll('.dark-mode-icon').forEach(el => { el.textContent = '☀️'; });
+            document.querySelectorAll('.dark-mode-label').forEach(el => { el.textContent = 'Light'; });
+          }
+          const nameInp = document.getElementById('input-user-name');
+          if (nameInp) nameInp.value = state.userName;
+          const protInp = document.getElementById('input-protein-goal');
+          if (protInp) protInp.value = state.proteinGoal;
+          const customProtInp = document.getElementById('custom-daily-protein-input');
+          if (customProtInp) customProtInp.value = state.proteinGoal;
+          const waterInp = document.getElementById('input-water-goal');
+          if (waterInp) waterInp.value = state.waterGoalMl;
+        } catch (err) {
+          console.warn('Could not load saved state:', err);
+        }
+      }
+
+      function savePersistedState() {
+        try {
+          const payload = {
+            userName: state.userName,
+            proteinGoal: state.proteinGoal,
+            waterMl: state.waterMl,
+            waterGoalMl: state.waterGoalMl,
+            darkMode: state.darkMode,
+            reminders: state.reminders,
+            monthIndex: state.monthIndex,
+            incomeCategories: state.incomeCategories,
+            expenseCategories: state.expenseCategories,
+            splitLabels: state.splitLabels,
+            transactions: state.transactions,
+            holdings: state.holdings,
+            gymSplits: state.gymSplits,
+            meals: state.meals,
+            waterLogs: state.waterLogs,
+            gymSplit: state.gymSplit
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          console.warn('Could not save state:', err);
+        }
+      }
+
+      function renderAll() {
+        savePersistedState();
+        // 1. Money Totals
+        const incomeList = state.transactions.filter(t => t.type === 'income');
+        const expenseList = state.transactions.filter(t => t.type === 'expense');
+        const todayExpenseList = expenseList.filter(t => t.isToday);
+
+        const income = incomeList.reduce((s, t) => s + t.amount, 0);
+        const expense = expenseList.reduce((s, t) => s + t.amount, 0);
+        const todaySpend = todayExpenseList.reduce((s, t) => s + t.amount, 0);
+        const saved = income - expense;
+        const savingsRate = income > 0 ? Math.max(0, Math.round((saved / income) * 100)) : 0;
+
+        document.getElementById('money-income-total').textContent = formatINR(income);
+        document.getElementById('money-expense-total').textContent = formatINR(expense);
+        document.getElementById('money-net-total').textContent = formatINR(saved);
+        document.getElementById('money-today-total').textContent = formatINR(todaySpend);
+        document.getElementById('home-today-spend').textContent = formatINR(todaySpend);
+        const homeNetEl = document.getElementById('home-net-saving');
+        if (homeNetEl) homeNetEl.textContent = formatINR(saved);
+        const homeSavBar = document.getElementById('home-savings-bar');
+        if (homeSavBar) homeSavBar.style.width = savingsRate + '%';
+        const homeMoneySub = document.getElementById('home-money-sub');
+        if (homeMoneySub) homeMoneySub.textContent = savingsRate + '% savings rate · ' + todayExpenseList.length + ' items today';
+        document.getElementById('today-expense-count-badge').textContent = todayExpenseList.length + ' items';
+        document.getElementById('money-savings-rate-badge').textContent = savingsRate + '% Saved';
+
+        // Itemized Today's Expenses List
+        const todayDetailsEl = document.getElementById('money-today-details-list');
+        if (todayExpenseList.length === 0) {
+          todayDetailsEl.innerHTML = `<p class="text-xs text-[#96938C]">No expenses logged today yet.</p>`;
+        } else {
+          todayDetailsEl.innerHTML = todayExpenseList.map(t => `
+            <div class="flex items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="text-rose-600 font-mono-num">▢</span>
+                <span class="font-medium text-[#181816] truncate">${t.title}</span>
+                <span class="text-[11px] text-[#96938C] shrink-0">(${t.date.replace('Today · ', '')})</span>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="font-mono-num font-semibold text-rose-700">-${formatINR(t.amount)}</span>
+                <button type="button" data-remove-tx="${t.id}" data-remove-label="${t.title} (${formatINR(t.amount)})" class="px-2 py-0.5 rounded bg-rose-50 text-rose-700 text-[10px] font-medium border border-rose-200 hover:bg-rose-100">
+                  Remove
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Filter by search query if active
+        const q = (state.moneySearch || '').toLowerCase().trim();
+        const visibleIncome = incomeList.filter(t => !q || t.title.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
+        const visibleExpenses = expenseList.filter(t => !q || t.title.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
+
+        // Income Book Cards with +++ Larger Fonts & 1-Click Edit
+        const incomeDetailsEl = document.getElementById('money-income-details-list');
+        if (visibleIncome.length === 0) {
+          incomeDetailsEl.innerHTML = `<div class="bg-white/80 rounded-2xl p-3 text-center text-xs font-medium text-[#686660]">Tap + to add income</div>`;
+        } else {
+          incomeDetailsEl.innerHTML = visibleIncome.map(t => `
+            <div class="bg-white rounded-2xl p-3 sm:p-4 shadow-2xs border border-[#E5E2DC]/80 flex items-center justify-between gap-2.5">
+              <button type="button" data-toggle-tx-check="${t.id}" class="w-6 h-6 rounded-lg border-2 flex items-center justify-center text-xs shrink-0 transition ${t.checked ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-stone-100 border-stone-300 text-transparent'}">
+                ✓
+              </button>
+              <div data-oneclick-edit="tx" data-edit-id="${t.id}" class="min-w-0 flex-1 cursor-pointer hover:opacity-80 transition" title="Tap to 1-Click Edit">
+                <p class="text-sm sm:text-base font-bold text-[#181816] truncate ${t.checked ? 'line-through opacity-60' : ''}">${t.title}</p>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-lg bg-stone-100 text-[#686660] text-xs font-medium max-w-full truncate">
+                  ${t.category}
+                </span>
+                <div class="font-mono-num text-sm sm:text-lg font-extrabold text-[#181816] mt-1">
+                  ${formatINR(t.amount)}
+                </div>
+              </div>
+              <button type="button" data-remove-tx="${t.id}" data-remove-label="${t.title} (${formatINR(t.amount)})" class="w-7 h-7 rounded-lg hover:bg-stone-100 text-[#686660] hover:text-rose-600 flex items-center justify-center text-base font-bold shrink-0" title="Remove with permission">
+                &times;
+              </button>
+            </div>
+          `).join('');
+        }
+
+        // Expenses Book Cards with +++ Larger Fonts & 1-Click Edit
+        const expenseDetailsEl = document.getElementById('money-expense-details-list');
+        if (visibleExpenses.length === 0) {
+          expenseDetailsEl.innerHTML = `<div class="bg-white/80 rounded-2xl p-3 text-center text-xs font-medium text-[#686660]">Tap + to add expense</div>`;
+        } else {
+          expenseDetailsEl.innerHTML = visibleExpenses.map(t => `
+            <div class="bg-white rounded-2xl p-3 sm:p-4 shadow-2xs border border-[#E5E2DC]/80 flex items-center justify-between gap-2.5">
+              <button type="button" data-toggle-tx-check="${t.id}" class="w-6 h-6 rounded-lg border-2 flex items-center justify-center text-xs shrink-0 transition ${t.checked ? 'bg-rose-600 border-rose-600 text-white' : 'bg-stone-100 border-stone-300 text-transparent'}">
+                ✓
+              </button>
+              <div data-oneclick-edit="tx" data-edit-id="${t.id}" class="min-w-0 flex-1 cursor-pointer hover:opacity-80 transition" title="Tap to 1-Click Edit">
+                <p class="text-sm sm:text-base font-bold text-[#181816] truncate ${t.checked ? 'line-through opacity-60' : ''}">${t.title}</p>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-lg bg-stone-100 text-[#686660] text-xs font-medium max-w-full truncate">
+                  ${t.category}
+                </span>
+                <div class="font-mono-num text-sm sm:text-lg font-extrabold text-[#181816] mt-1">
+                  ${formatINR(t.amount)}
+                </div>
+              </div>
+              <button type="button" data-remove-tx="${t.id}" data-remove-label="${t.title} (${formatINR(t.amount)})" class="w-7 h-7 rounded-lg hover:bg-stone-100 text-[#686660] hover:text-rose-600 flex items-center justify-center text-base font-bold shrink-0" title="Remove with permission">
+                &times;
+              </button>
+            </div>
+          `).join('');
+        }
+
+        // Stored Transactions Ledger with 1-Click Edit & Remove
+        const txEl = document.getElementById('money-transactions-list');
+        const filteredTx = state.transactions.filter(t => {
+          if (state.moneyFilter === 'all') return true;
+          if (state.moneyFilter === 'today') return t.isToday;
+          return t.type === state.moneyFilter;
+        });
+        txEl.innerHTML = filteredTx.map(t => `
+          <div class="py-3.5 flex items-center justify-between gap-3">
+            <div data-oneclick-edit="tx" data-edit-id="${t.id}" class="min-w-0 flex-1 cursor-pointer hover:opacity-80 transition">
+              <p class="text-sm sm:text-base font-bold text-[#181816] truncate">${t.title}</p>
+              <span class="text-xs text-[#686660]">${t.category} · ${t.date} · <u class="text-indigo-700">1-Click Edit</u></span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="font-mono-num text-sm sm:text-base font-bold ${t.type === 'income' ? 'text-emerald-700' : 'text-rose-700'}">
+                ${t.type === 'income' ? '+' : '-'}${formatINR(t.amount)}
+              </span>
+              <button type="button" data-oneclick-edit="tx" data-edit-id="${t.id}" class="px-2.5 py-1 rounded-lg bg-stone-100 text-xs font-semibold text-[#181816] hover:bg-stone-200 transition">
+                Edit
+              </button>
+              <button type="button" data-remove-tx="${t.id}" data-remove-label="${t.title} (${formatINR(t.amount)})" class="px-2.5 py-1 rounded-lg border border-[#E5E2DC] hover:border-rose-500 text-xs text-rose-600 font-semibold transition">
+                Remove
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        // 2. Real-Life的投资 Dashboard Totals & Stored History (1-Click Customize)
+        const totalValue = state.holdings.reduce((s, h) => s + h.value, 0);
+        const totalInvestedCap = state.holdings.reduce((s, h) => s + (h.invested || Math.round(h.value * 0.84)), 0);
+        const totalProfit = totalValue - totalInvestedCap;
+        const profitPct = totalInvestedCap > 0 ? ((totalProfit / totalInvestedCap) * 100).toFixed(1) : '0.0';
+        const totalMonthlySip = state.holdings.reduce((s, h) => s + (h.sip || 0), 0);
+
+        document.getElementById('invest-header-total').textContent = 'Total: ' + formatINR(totalValue);
+        document.getElementById('investing-holdings-count').textContent = state.holdings.length + ' holdings';
+        document.getElementById('invest-dash-current').textContent = formatINR(totalValue);
+        document.getElementById('invest-dash-invested').textContent = formatINR(totalInvestedCap);
+        document.getElementById('invest-dash-profit').textContent = (totalProfit >= 0 ? '+' : '') + formatINR(totalProfit);
+        document.getElementById('invest-dash-profit-pct').textContent = (totalProfit >= 0 ? '+' : '') + profitPct + '% Return';
+        document.getElementById('invest-dash-sip').textContent = formatINR(totalMonthlySip) + '/mo';
+        const homeInvVal = document.getElementById('home-invest-val');
+        if (homeInvVal) homeInvVal.textContent = formatINR(totalValue);
+        const homeInvProf = document.getElementById('home-invest-profit');
+        if (homeInvProf) homeInvProf.textContent = (totalProfit >= 0 ? '+' : '') + formatINR(totalProfit) + ' (' + (totalProfit >= 0 ? '+' : '') + profitPct + '%)';
+        const homeInvSip = document.getElementById('home-invest-sip');
+        if (homeInvSip) homeInvSip.textContent = 'Monthly SIP: ' + formatINR(totalMonthlySip) + '/mo · ' + state.holdings.length + ' holdings';
+
+        const holdEl = document.getElementById('investing-holdings-list');
+        holdEl.innerHTML = state.holdings.map(h => `
+          <div class="py-3.5 flex items-center justify-between gap-3">
+            <div data-oneclick-edit="holding" data-edit-id="${h.id}" class="min-w-0 flex-1 cursor-pointer hover:opacity-80 transition">
+              <p class="text-xs sm:text-sm font-semibold text-[#181816]">${h.name}</p>
+              <span class="text-[11px] text-[#686660]">${h.type} · ${h.sip > 0 ? 'SIP: ' + formatINR(h.sip) + '/mo' : 'Lump sum'} · Invested: ${formatINR(h.invested || h.value)} · <strong class="text-emerald-700">${h.returns}</strong></span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="font-mono-num text-xs sm:text-sm font-bold text-[#181816]">${formatINR(h.value)}</span>
+              <button type="button" data-oneclick-edit="holding" data-edit-id="${h.id}" class="px-2.5 py-1 rounded-lg bg-stone-100 text-[11px] font-semibold text-[#181816] hover:bg-stone-200 transition">
+                Customize
+              </button>
+              <button type="button" data-remove-holding="${h.id}" data-remove-label="${h.name} (${formatINR(h.value)})" class="px-2 py-1 rounded-lg border border-[#E5E2DC] hover:border-rose-500 text-[11px] text-rose-600 font-medium transition">
+                Remove
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        // 3. Gym Progressive Overload List with 1-Click Customize
+        const splitTitleText = state.splitLabels[state.gymSplit] || (state.gymSplit.toUpperCase() + ' Workout — Strength & Overload');
+        document.getElementById('gym-split-title').textContent = splitTitleText;
+        document.getElementById('home-gym-split-name').textContent = state.gymSplit.toUpperCase() + ' DAY';
+
+        const gymList = state.gymSplits[state.gymSplit] || [];
+        const doneCount = gymList.filter(x => x.done).length;
+        document.getElementById('gym-sets-progress').textContent = doneCount + '/' + gymList.length + ' exercises done today';
+        const homeGymSum = document.getElementById('home-gym-done-summary');
+        if (homeGymSum) homeGymSum.textContent = doneCount + ' / ' + gymList.length + ' exercises completed · Progressive overload active';
+        const homeGymBar = document.getElementById('home-gym-bar');
+        if (homeGymBar) homeGymBar.style.width = (gymList.length > 0 ? Math.round((doneCount / gymList.length) * 100) : 0) + '%';
+
+        const gymEl = document.getElementById('gym-exercises-list');
+        if (gymList.length === 0) {
+          gymEl.innerHTML = `<p class="py-4 text-xs text-[#96938C]">No exercises in this split yet. Tap "+ Add Exercise" on the right above.</p>`;
+        } else {
+          gymEl.innerHTML = gymList.map(ex => {
+            const isOverload = ex.weightKg > ex.prevKg;
+            const diff = (ex.weightKg - ex.prevKg).toFixed(1);
+            return `
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-start gap-3 min-w-0 flex-1">
+                  <button type="button" data-toggle-gym-done="${ex.id}" class="mt-0.5 w-6 h-6 rounded-md border flex items-center justify-center text-xs transition ${ex.done ? 'bg-[#181816] text-white border-[#181816]' : 'bg-white border-[#E5E2DC] text-stone-400'}" title="Mark done today">
+                    ${ex.done ? '✓' : '□'}
+                  </button>
+                  <div data-oneclick-edit="gym" data-edit-id="${ex.id}" class="cursor-pointer hover:opacity-80 transition flex-1">
+                    <p class="text-xs sm:text-sm font-semibold text-[#181816] ${ex.done ? 'line-through opacity-70' : ''}">${ex.name}</p>
+                    <div class="flex items-center flex-wrap gap-2 mt-0.5 text-[11px] font-mono-num text-[#686660]">
+                      <span>${ex.sets} sets × ${ex.reps} reps</span>
+                      <span>·</span>
+                      <span class="font-bold text-[#181816]">${ex.weightKg} kg</span>
+                      ${isOverload ? `<span class="px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-700 font-medium">⚡ +${diff}kg overload</span>` : ''}
+                      <u class="text-indigo-700">Edit</u>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                  <div class="flex items-center gap-1 font-mono-num text-xs bg-stone-100 rounded-lg p-0.5">
+                    <button type="button" data-gym-adjust="${ex.id}" data-kg-delta="-2.5" class="px-2 py-1 rounded bg-white hover:bg-stone-200 text-[#181816] font-medium">-2.5</button>
+                    <span class="px-1 font-semibold">${ex.weightKg}kg</span>
+                    <button type="button" data-gym-adjust="${ex.id}" data-kg-delta="2.5" class="px-2 py-1 rounded bg-white hover:bg-stone-200 text-[#181816] font-medium">+2.5</button>
+                  </div>
+                  <button type="button" data-oneclick-edit="gym" data-edit-id="${ex.id}" class="px-2 py-1 rounded-lg bg-stone-100 text-[11px] font-semibold text-[#181816]">
+                    Edit
+                  </button>
+                  <button type="button" data-remove-gym="${ex.id}" data-remove-label="${ex.name}" class="px-2 py-1 rounded-lg border border-[#E5E2DC] hover:border-rose-500 text-[11px] text-rose-600 font-medium transition">
+                    Remove
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // 4. Protein Totals & Stored Meals List (with 1-Click Edit)
+        const totalProtein = state.meals.reduce((s, m) => s + m.protein, 0);
+        const totalKcal = state.meals.reduce((s, m) => s + m.kcal, 0);
+        const proteinPct = Math.min(100, Math.round((totalProtein / state.proteinGoal) * 100));
+
+        document.getElementById('protein-meter-current').textContent = totalProtein;
+        document.getElementById('protein-meter-goal').textContent = state.proteinGoal;
+        document.getElementById('home-protein-val').textContent = totalProtein;
+        document.getElementById('home-protein-goal').textContent = state.proteinGoal;
+        const homeProtBar = document.getElementById('home-protein-bar');
+        if (homeProtBar) homeProtBar.style.width = proteinPct + '%';
+        const homeProtRem = document.getElementById('home-protein-rem');
+        if (homeProtRem) homeProtRem.textContent = Math.max(0, state.proteinGoal - totalProtein) + 'g remaining for daily goal';
+        document.getElementById('protein-meter-calories').textContent = totalKcal.toLocaleString() + ' kcal';
+        document.getElementById('protein-progress-bar').style.width = proteinPct + '%';
+        document.getElementById('protein-meals-count').textContent = state.meals.length + ' meals';
+
+        const mealsEl = document.getElementById('protein-meals-list');
+        if (state.meals.length === 0) {
+          mealsEl.innerHTML = `<p class="py-4 text-xs text-[#96938C]">No meals logged today. Tap any food card above.</p>`;
+        } else {
+          mealsEl.innerHTML = state.meals.map(m => `
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div data-oneclick-edit="meal" data-edit-id="${m.id}" class="min-w-0 flex-1 cursor-pointer hover:opacity-80 transition">
+                <p class="text-xs sm:text-sm font-medium text-[#181816] truncate">${m.name}</p>
+                <span class="text-[11px] text-[#686660]">${m.slot} · ${m.kcal} kcal · <u class="text-indigo-700">1-Click Edit</u></span>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="font-mono-num text-xs sm:text-sm font-semibold text-emerald-700">+${m.protein}g protein</span>
+                <button type="button" data-oneclick-edit="meal" data-edit-id="${m.id}" class="px-2 py-1 rounded-lg bg-stone-100 text-[11px] font-semibold text-[#181816]">
+                  Edit
+                </button>
+                <button type="button" data-remove-meal="${m.id}" data-remove-label="${m.name} (+${m.protein}g protein)" class="px-2.5 py-1 rounded-lg bg-rose-50 rose-badge text-rose-700 border border-rose-200/60 hover:bg-rose-100 text-[11px] font-medium transition active:scale-95">
+                  Remove
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // 5. Water Hydration Page & Stored Logs (with 1-Click Edit)
+        const waterLiters = (state.waterMl / 1000).toFixed(2);
+        const waterGoalLiters = (state.waterGoalMl / 1000).toFixed(1);
+        const glasses = Math.round(state.waterMl / 250);
+        const goalGlasses = Math.round(state.waterGoalMl / 250);
+        const waterPct = Math.min(100, Math.round((state.waterMl / state.waterGoalMl) * 100));
+
+        document.getElementById('home-water-val').textContent = waterLiters;
+        const homeWaterBar = document.getElementById('home-water-bar');
+        if (homeWaterBar) homeWaterBar.style.width = waterPct + '%';
+        const homeWaterGlasses = document.getElementById('home-water-glasses');
+        if (homeWaterGlasses) homeWaterGlasses.textContent = glasses + ' / ' + goalGlasses + ' glasses drank today';
+        document.getElementById('page-water-liters').textContent = waterLiters;
+        document.getElementById('page-water-goal').textContent = waterGoalLiters;
+        document.getElementById('page-water-glasses').textContent = glasses + ' / ' + goalGlasses + ' glasses completed · ' + Math.max(0, (state.waterGoalMl - state.waterMl)/1000).toFixed(2) + 'L remaining';
+        document.getElementById('page-water-bar').style.width = waterPct + '%';
+
+        const waterListEl = document.getElementById('water-log-list');
+        if (state.waterLogs.length === 0) {
+          waterListEl.innerHTML = `<p class="py-4 text-xs text-[#96938C]">No water logs today yet.</p>`;
+        } else {
+          waterListEl.innerHTML = state.waterLogs.map(w => `
+            <div class="py-3 flex items-center justify-between gap-3 text-xs">
+              <div data-oneclick-edit="water" data-edit-id="${w.id}" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition flex-1">
+                <span class="text-sky-600">💧</span>
+                <span class="font-medium text-[#181816]">${w.label}</span>
+                <span class="text-[11px] text-[#96938C]">(${w.time}) · <u class="text-indigo-700">Edit</u></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono-num font-semibold text-sky-700">+${w.amountMl}ml</span>
+                <button type="button" data-oneclick-edit="water" data-edit-id="${w.id}" class="px-2 py-0.5 rounded bg-stone-100 text-[10px] font-semibold text-[#181816]">
+                  Edit
+                </button>
+                <button type="button" data-remove-water="${w.id}" data-remove-label="${w.label} (${w.amountMl}ml)" class="px-2 py-0.5 rounded border border-[#E5E2DC] hover:border-rose-500 text-[10px] text-rose-600 font-medium transition">
+                  Remove
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // 6. Live Date, Time-of-Day Greeting & Reminders List
+        const now = new Date();
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const formattedDate = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+        const hr = now.getHours();
+        const periodGreeting = hr < 12 ? 'Good morning' : (hr < 17 ? 'Good afternoon' : 'Good evening');
+
+        const liveDateEl = document.getElementById('live-date-text');
+        if (liveDateEl) liveDateEl.textContent = formattedDate;
+        const moneyDateEl = document.getElementById('money-date-label');
+        if (moneyDateEl) moneyDateEl.textContent = formattedDate + ' — Daily Update.';
+
+        const greetPeriodEl = document.getElementById('greeting-period');
+        if (greetPeriodEl) greetPeriodEl.textContent = periodGreeting;
+        const moneyGreetPeriodEl = document.getElementById('money-greeting-period');
+        if (moneyGreetPeriodEl) moneyGreetPeriodEl.textContent = periodGreeting;
+
+        const openReminders = state.reminders.filter(r => !r.done).length;
+        document.getElementById('greeting-name').textContent = state.userName;
+        const moneyGreetNameEl = document.getElementById('money-greeting-name');
+        if (moneyGreetNameEl) moneyGreetNameEl.textContent = state.userName;
+        document.getElementById('attention-open-count').textContent = openReminders + ' open';
+        document.getElementById('sidebar-reminder-badge').textContent = openReminders;
+        document.getElementById('mobile-reminder-badge').textContent = openReminders;
+
+        const renderReminders = (elId) => {
+          const el = document.getElementById(elId);
+          if (!el) return;
+          el.innerHTML = state.reminders.map(r => `
+            <div class="py-3.5 flex items-center justify-between gap-3 ${r.done ? 'opacity-40' : ''}">
+              <div data-oneclick-edit="reminder" data-edit-id="${r.id}" class="flex items-start gap-3 min-w-0 flex-1 cursor-pointer hover:opacity-80 transition">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#181816] mt-2 shrink-0"></span>
+                <p class="text-xs sm:text-sm text-[#181816] ${r.done ? 'line-through' : ''} leading-snug">${r.text} <u class="text-[11px] text-indigo-700 ml-1">Edit</u></p>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <div class="text-right">
+                  <span class="block text-[10px] font-mono-num uppercase tracking-wider text-[#686660]">${r.tag}</span>
+                  <span class="block text-[11px] font-mono-num text-[#96938C]">${r.date}</span>
+                </div>
+                <button type="button" data-toggle-reminder="${r.id}" class="w-7 h-7 rounded-lg border border-[#E5E2DC] hover:border-stone-900 flex items-center justify-center text-xs transition ${r.done ? 'bg-[#181816] text-white' : 'bg-white text-stone-600'}" title="Mark complete">
+                  ✓
+                </button>
+              </div>
+            </div>
+          `).join('');
+        };
+        renderReminders('overview-attention-list');
+        renderReminders('full-reminders-list');
+      }
+
+      // Drawer Controls
+      function openMobileDrawer() {
+        const d = document.getElementById('mobile-drawer-backdrop');
+        d.classList.remove('hidden');
+        setTimeout(() => d.classList.remove('opacity-0'), 10);
+      }
+      function closeMobileDrawer() {
+        const d = document.getElementById('mobile-drawer-backdrop');
+        d.classList.add('opacity-0');
+        setTimeout(() => d.classList.add('hidden'), 180);
+      }
+
+      // Quick Log Modal Controls
+      function openQuickModal(mode) {
+        state.modalMode = mode || 'today-expense';
+        const modal = document.getElementById('quick-log-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        updateModalFields();
+      }
+
+      function closeQuickModal() {
+        const modal = document.getElementById('quick-log-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      function updateModalFields() {
+        document.querySelectorAll('.modal-tab-btn').forEach(btn => {
+          const active = btn.getAttribute('data-modal-tab') === state.modalMode;
+          btn.className = 'modal-tab-btn py-1.5 rounded-lg font-medium transition ' +
+            (active ? 'bg-white shadow-xs text-[#181816]' : 'text-[#686660]');
+        });
+
+        const modalTitle = document.getElementById('modal-title');
+        const titleInput = document.getElementById('modal-input-title');
+        const amountLabel = document.getElementById('modal-label-amount');
+        const amountInput = document.getElementById('modal-input-amount');
+        const subLabel = document.getElementById('modal-label-sub');
+        const subInput = document.getElementById('modal-input-sub');
+
+        if (state.modalMode === 'today-expense') {
+          modalTitle.textContent = "Log Today's Direct Spend";
+          amountLabel.textContent = 'Today Spend (₹)';
+          amountInput.placeholder = '250';
+          titleInput.placeholder = 'e.g., Eggs Tray, Coffee, Commute';
+          subLabel.textContent = 'Category';
+          subInput.placeholder = 'Today Diet / Travel';
+        } else if (state.modalMode === 'income') {
+          modalTitle.textContent = 'Add Monthly Income Data';
+          amountLabel.textContent = 'Income Amount (₹)';
+          amountInput.placeholder = '18000';
+          titleInput.placeholder = 'e.g., Freelance Project / Bonus';
+          subLabel.textContent = 'Income Source';
+          subInput.placeholder = 'Salary / Client';
+        } else if (state.modalMode === 'expense') {
+          modalTitle.textContent = 'Add Expense Transaction';
+          amountLabel.textContent = 'Amount (₹)';
+          amountInput.placeholder = '4200';
+          titleInput.placeholder = 'e.g., Wi-Fi Bill, Grocery';
+          subLabel.textContent = 'Category';
+          subInput.placeholder = 'Utilities / Diet';
+        } else if (state.modalMode === 'protein') {
+          modalTitle.textContent = 'Log Protein Meal';
+          amountLabel.textContent = 'Protein (grams)';
+          amountInput.placeholder = '28';
+          titleInput.placeholder = 'e.g., Paneer Bhurji + Roti';
+          subLabel.textContent = 'Calories (kcal)';
+          subInput.placeholder = '380';
+        } else if (state.modalMode === 'gym') {
+          modalTitle.textContent = 'Add Gym Exercise (Progressive Overload)';
+          amountLabel.textContent = 'Working Weight (kg)';
+          amountInput.placeholder = '27.5';
+          titleInput.placeholder = 'e.g., Incline DB Press';
+          subLabel.textContent = 'Target Sets × Reps';
+          subInput.placeholder = '4 sets × 10 reps';
+        }
+      }
+
+      // Event Delegation for All Clicks
+      document.addEventListener('click', (e) => {
+        // Navigation buttons
+        const navBtn = e.target.closest('.nav-btn[data-nav]');
+        if (navBtn) {
+          switchView(navBtn.getAttribute('data-nav'));
+          return;
+        }
+
+        // Water adjustments
+        const waterBtn = e.target.closest('.water-btn');
+        if (waterBtn) {
+          const delta = parseInt(waterBtn.getAttribute('data-water-delta'), 10);
+          state.waterMl = Math.max(0, state.waterMl + delta);
+          if (delta > 0) {
+            state.waterLogs.unshift({
+              id: 'w' + Date.now(),
+              amountMl: delta,
+              time: 'Just now',
+              label: delta === 250 ? 'Glass of Water' : (delta === 500 ? 'Water Bottle' : 'Flask')
+            });
+          }
+          renderAll();
+          showToast((delta > 0 ? '+' + delta + 'ml water logged!' : delta + 'ml adjusted') + ' (' + (state.waterMl / 1000).toFixed(2) + 'L)');
+          return;
+        }
+
+        // Protein goal preset buttons ("Daily I select or decide Total Protein add")
+        const goalBtn = e.target.closest('[data-set-protein-goal]');
+        if (goalBtn) {
+          const target = parseInt(goalBtn.getAttribute('data-set-protein-goal'), 10);
+          state.proteinGoal = target;
+          renderAll();
+          showToast('Daily protein goal set to ' + target + 'g!');
+          return;
+        }
+
+        // Gym Split buttons from Sketch 3
+        const splitBtn = e.target.closest('.gym-split-btn');
+        if (splitBtn) {
+          state.gymSplit = splitBtn.getAttribute('data-gym-split');
+          document.querySelectorAll('.gym-split-btn').forEach(b => {
+            const active = b.getAttribute('data-gym-split') === state.gymSplit;
+            b.className = 'gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium ' +
+              (active ? 'bg-[#181816] text-white' : 'bg-white border border-[#E5E2DC] text-[#181816]');
+          });
+          renderAll();
+          return;
+        }
+
+        // Gym Progressive Overload Weight +/- 2.5kg Adjuster
+        const gymAdj = e.target.closest('[data-gym-adjust]');
+        if (gymAdj) {
+          const exId = gymAdj.getAttribute('data-gym-adjust');
+          const deltaKg = parseFloat(gymAdj.getAttribute('data-kg-delta'));
+          const list = state.gymSplits[state.gymSplit] || [];
+          const ex = list.find(x => x.id === exId);
+          if (ex) {
+            ex.prevKg = ex.weightKg;
+            ex.weightKg = Math.max(0, parseFloat((ex.weightKg + deltaKg).toFixed(1)));
+            renderAll();
+            showToast(ex.name + ' weight: ' + ex.weightKg + ' kg (Overload updated)');
+          }
+          return;
+        }
+
+        // Gym mark done toggle
+        const gymDone = e.target.closest('[data-toggle-gym-done]');
+        if (gymDone) {
+          const exId = gymDone.getAttribute('data-toggle-gym-done');
+          const list = state.gymSplits[state.gymSplit] || [];
+          const ex = list.find(x => x.id === exId);
+          if (ex) {
+            ex.done = !ex.done;
+            renderAll();
+            showToast(ex.done ? 'Marked done: ' + ex.name : 'Unchecked: ' + ex.name);
+          }
+          return;
+        }
+
+        // 1-Touch High-Protein Food Bank
+        const foodBtn = e.target.closest('.quick-food-btn');
+        if (foodBtn) {
+          const name = foodBtn.getAttribute('data-food-name');
+          const protein = parseInt(foodBtn.getAttribute('data-food-protein'), 10);
+          const kcal = parseInt(foodBtn.getAttribute('data-food-kcal'), 10);
+          const slot = foodBtn.getAttribute('data-food-slot');
+          state.meals.unshift({
+            id: 'm' + Date.now(),
+            name,
+            protein,
+            kcal,
+            slot: slot + ' · Just now'
+          });
+          renderAll();
+          showToast('Added +' + protein + 'g protein (' + name + ')');
+          return;
+        }
+
+        // REMOVE BUTTONS WITH PERMISSION CHECK
+        const removeMealBtn = e.target.closest('[data-remove-meal]');
+        if (removeMealBtn) {
+          askPermissionToRemove('meal', removeMealBtn.getAttribute('data-remove-meal'), removeMealBtn.getAttribute('data-remove-label'));
+          return;
+        }
+
+        const checkTxBtn = e.target.closest('[data-toggle-tx-check]');
+        if (checkTxBtn) {
+          const id = checkTxBtn.getAttribute('data-toggle-tx-check');
+          const tx = state.transactions.find(t => t.id === id);
+          if (tx) {
+            tx.checked = !tx.checked;
+            renderAll();
+          }
+          return;
+        }
+
+        const removeTxBtn = e.target.closest('[data-remove-tx]');
+        if (removeTxBtn) {
+          askPermissionToRemove('tx', removeTxBtn.getAttribute('data-remove-tx'), removeTxBtn.getAttribute('data-remove-label'));
+          return;
+        }
+
+        const removeHoldBtn = e.target.closest('[data-remove-holding]');
+        if (removeHoldBtn) {
+          askPermissionToRemove('holding', removeHoldBtn.getAttribute('data-remove-holding'), removeHoldBtn.getAttribute('data-remove-label'));
+          return;
+        }
+
+        const removeGymBtn = e.target.closest('[data-remove-gym]');
+        if (removeGymBtn) {
+          askPermissionToRemove('gym', removeGymBtn.getAttribute('data-remove-gym'), removeGymBtn.getAttribute('data-remove-label'));
+          return;
+        }
+
+        const removeWaterBtn = e.target.closest('[data-remove-water]');
+        if (removeWaterBtn) {
+          askPermissionToRemove('water', removeWaterBtn.getAttribute('data-remove-water'), removeWaterBtn.getAttribute('data-remove-label'));
+          return;
+        }
+
+        // Reminder toggle
+        const remBtn = e.target.closest('[data-toggle-reminder]');
+        if (remBtn) {
+          const id = remBtn.getAttribute('data-toggle-reminder');
+          const item = state.reminders.find(r => r.id === id);
+          if (item) {
+            item.done = !item.done;
+            renderAll();
+            showToast(item.done ? 'Reminder marked complete' : 'Reminder reopened');
+          }
+          return;
+        }
+
+        // Money filter
+        const filterBtn = e.target.closest('.money-filter-btn');
+        if (filterBtn) {
+          state.moneyFilter = filterBtn.getAttribute('data-money-filter');
+          document.querySelectorAll('.money-filter-btn').forEach(b => {
+            const active = b.getAttribute('data-money-filter') === state.moneyFilter;
+            b.className = 'money-filter-btn px-2.5 py-1 rounded-md text-xs font-medium ' +
+              (active ? 'bg-[#181816] text-white' : 'bg-stone-100 text-stone-600');
+          });
+          renderAll();
+          return;
+        }
+
+        // Modal triggers
+        const modalTrigger = e.target.closest('.quick-modal-trigger');
+        if (modalTrigger) {
+          openQuickModal(modalTrigger.getAttribute('data-quick-modal'));
+          return;
+        }
+
+        const modalTab = e.target.closest('.modal-tab-btn');
+        if (modalTab) {
+          state.modalMode = modalTab.getAttribute('data-modal-tab');
+          updateModalFields();
+          return;
+        }
+      });
+
+      // Dark mode & drawer listeners
+      document.getElementById('btn-mobile-dark-mode').addEventListener('click', toggleDarkMode);
+      document.getElementById('btn-desktop-dark-mode').addEventListener('click', toggleDarkMode);
+      document.getElementById('btn-desktop-quick-add').addEventListener('click', () => openQuickModal('today-expense'));
+      document.getElementById('btn-mobile-drawer').addEventListener('click', openMobileDrawer);
+      document.getElementById('btn-close-drawer').addEventListener('click', closeMobileDrawer);
+      document.getElementById('btn-mobile-quick-add').addEventListener('click', () => openQuickModal('today-expense'));
+      document.getElementById('btn-close-modal').addEventListener('click', closeQuickModal);
+
+      // Permission Modal buttons
+      document.getElementById('btn-cancel-remove').addEventListener('click', closePermissionModal);
+      document.getElementById('btn-confirm-remove').addEventListener('click', confirmPermissionRemove);
+
+      // Month switcher (< October 2026 >)
+      const monthNamesList = [
+        'January 2026', 'February 2026', 'March 2026', 'April 2026',
+        'May 2026', 'June 2026', 'July 2026', 'August 2026',
+        'September 2026', 'October 2026', 'November 2026', 'December 2026'
+      ];
+      function updateMonthUI() {
+        const disp = document.getElementById('money-month-display');
+        const sel = document.getElementById('money-month-select');
+        if (disp) disp.textContent = monthNamesList[state.monthIndex];
+        if (sel) sel.value = String(state.monthIndex);
+      }
+      document.getElementById('btn-prev-month').addEventListener('click', () => {
+        state.monthIndex = (state.monthIndex + 11) % 12;
+        updateMonthUI();
+        showToast('Viewing ' + monthNamesList[state.monthIndex]);
+      });
+      document.getElementById('btn-next-month').addEventListener('click', () => {
+        state.monthIndex = (state.monthIndex + 1) % 12;
+        updateMonthUI();
+        showToast('Viewing ' + monthNamesList[state.monthIndex]);
+      });
+
+      // Money search bar toggle & live filter
+      document.getElementById('btn-toggle-money-search').addEventListener('click', () => {
+        const bar = document.getElementById('money-search-bar');
+        const inp = document.getElementById('money-search-input');
+        bar.classList.toggle('hidden');
+        if (!bar.classList.contains('hidden')) {
+          inp.focus();
+        } else {
+          state.moneySearch = '';
+          inp.value = '';
+          renderAll();
+        }
+      });
+      document.getElementById('money-search-input').addEventListener('input', (e) => {
+        state.moneySearch = e.target.value;
+        renderAll();
+      });
+
+      // Custom Daily Protein Goal setter ("no fixed, i decide")
+      function applyCustomProteinGoal() {
+        const inp = document.getElementById('custom-daily-protein-input');
+        const val = parseInt(inp.value, 10);
+        if (val && val >= 10 && val <= 600) {
+          state.proteinGoal = val;
+          const settingsInp = document.getElementById('input-protein-goal');
+          if (settingsInp) settingsInp.value = String(val);
+          renderAll();
+          showToast("Today's protein goal set to " + val + 'g!');
+        } else {
+          showToast('Enter a valid protein goal in grams');
+        }
+      }
+      document.getElementById('btn-set-custom-protein-goal').addEventListener('click', applyCustomProteinGoal);
+      document.getElementById('custom-daily-protein-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyCustomProteinGoal();
+        }
+      });
+
+      // Save settings
+      document.getElementById('btn-save-settings').addEventListener('click', () => {
+        const newName = document.getElementById('input-user-name').value.trim();
+        const newGoal = parseInt(document.getElementById('input-protein-goal').value, 10);
+        const newWater = parseInt(document.getElementById('input-water-goal').value, 10);
+        if (newName) state.userName = newName;
+        if (newGoal && newGoal >= 40) state.proteinGoal = newGoal;
+        if (newWater && newWater >= 1000) state.waterGoalMl = newWater;
+        renderAll();
+        showToast('Settings saved for ' + state.userName + '!');
+      });
+
+      // Quick log submit
+      document.getElementById('quick-log-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('modal-input-title').value.trim();
+        const val = parseFloat(document.getElementById('modal-input-amount').value) || 0;
+        const sub = document.getElementById('modal-input-sub').value.trim();
+
+        if (!title) return;
+
+        if (state.modalMode === 'today-expense') {
+          state.transactions.unshift({
+            id: 't' + Date.now(),
+            title,
+            amount: val,
+            type: 'expense',
+            category: sub || 'Today Spend',
+            date: 'Today · Just now',
+            isToday: true
+          });
+          showToast("Added to Today's Expenses: " + formatINR(val));
+        } else if (state.modalMode === 'income') {
+          state.transactions.unshift({
+            id: 't' + Date.now(),
+            title,
+            amount: val,
+            type: 'income',
+            category: sub || 'Income',
+            date: 'Today',
+            isToday: false
+          });
+          showToast('Added Income: +' + formatINR(val));
+        } else if (state.modalMode === 'expense') {
+          state.transactions.unshift({
+            id: 't' + Date.now(),
+            title,
+            amount: val,
+            type: 'expense',
+            category: sub || 'Monthly Expense',
+            date: 'Oct 2026',
+            isToday: false
+          });
+          showToast('Added Expense: -' + formatINR(val));
+        } else if (state.modalMode === 'protein') {
+          state.meals.unshift({
+            id: 'm' + Date.now(),
+            name: title,
+            protein: Math.round(val),
+            kcal: parseInt(sub, 10) || 220,
+            slot: 'Logged · Just now'
+          });
+          showToast('Logged +' + Math.round(val) + 'g protein!');
+        } else if (state.modalMode === 'gym') {
+          state.gymSplits[state.gymSplit].push({
+            id: 'g' + Date.now(),
+            name: title,
+            sets: 3,
+            reps: 10,
+            weightKg: val,
+            prevKg: val,
+            done: false
+          });
+          showToast('Added ' + title + ' (' + val + 'kg) to ' + state.gymSplit.toUpperCase());
+        }
+
+        e.target.reset();
+        closeQuickModal();
+        renderAll();
+      });
+
+      // =========================================================
+      // MONEY TAB ONLY TRANSACTION MODAL (INCOME & EXPENSES ONLY)
+      // =========================================================
+      function openMoneyOnlyModal(type) {
+        state.moneyTxMode = type === 'income' ? 'income' : 'expense';
+        const modal = document.getElementById('money-only-tx-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        syncMoneyOnlyModalUI();
+      }
+      function closeMoneyOnlyModal() {
+        const modal = document.getElementById('money-only-tx-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      function syncMoneyOnlyModalUI() {
+        const isInc = state.moneyTxMode === 'income';
+        document.getElementById('money-only-modal-title').textContent = isInc ? 'Add to Income Book' : 'Add to Expenses Book';
+        document.querySelectorAll('.money-tx-type-btn').forEach(btn => {
+          const t = btn.getAttribute('data-money-tx-type');
+          if (t === state.moneyTxMode) {
+            btn.className = 'money-tx-type-btn py-2 rounded-lg font-bold text-white shadow-xs transition ' + (isInc ? 'bg-emerald-600' : 'bg-rose-600');
+          } else {
+            btn.className = 'money-tx-type-btn py-2 rounded-lg font-bold text-[#686660] transition';
+          }
+        });
+        const sel = document.getElementById('money-tx-category');
+        const cats = isInc ? state.incomeCategories : state.expenseCategories;
+        sel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+      }
+      document.getElementById('btn-open-money-tx').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openMoneyOnlyModal('expense');
+      });
+      document.getElementById('btn-close-money-only-modal').addEventListener('click', closeMoneyOnlyModal);
+      document.querySelectorAll('.money-tx-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.moneyTxMode = btn.getAttribute('data-money-tx-type');
+          syncMoneyOnlyModalUI();
+        });
+      });
+      document.getElementById('money-only-tx-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('money-tx-title').value.trim();
+        const amount = parseFloat(document.getElementById('money-tx-amount').value) || 0;
+        const category = document.getElementById('money-tx-category').value || (state.moneyTxMode === 'income' ? 'Income' : 'Food');
+        if (!title || amount <= 0) return;
+        state.transactions.unshift({
+          id: 't' + Date.now(),
+          title,
+          amount,
+          type: state.moneyTxMode,
+          category,
+          date: 'Today',
+          isToday: state.moneyTxMode === 'expense',
+          checked: false
+        });
+        e.target.reset();
+        closeMoneyOnlyModal();
+        renderAll();
+        showToast((state.moneyTxMode === 'income' ? 'Added to Income Book: +' : 'Added to Expenses Book: -') + formatINR(amount));
+      });
+
+      // =========================================================
+      // MONEY MENU MODAL (CHARTS, SETTINGS/CATEGORIES, EXPORT)
+      // =========================================================
+      function renderMoneyMenuContent() {
+        const inc = state.transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
+        const exp = state.transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+        const sav = Math.max(0, inc - exp);
+        const maxVal = Math.max(1, inc, exp);
+
+        const chartBars = document.getElementById('money-chart-bars');
+        chartBars.innerHTML = `
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-semibold"><span>Total Income</span><span class="font-mono-num text-emerald-700">${formatINR(inc)}</span></div>
+            <div class="w-full h-3 rounded-full bg-stone-200 overflow-hidden"><div class="h-full bg-emerald-600" style="width:${Math.round((inc/maxVal)*100)}%"></div></div>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-semibold"><span>Total Expenses</span><span class="font-mono-num text-rose-700">${formatINR(exp)}</span></div>
+            <div class="w-full h-3 rounded-full bg-stone-200 overflow-hidden"><div class="h-full bg-rose-600" style="width:${Math.round((exp/maxVal)*100)}%"></div></div>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-semibold"><span>Net Saving</span><span class="font-mono-num text-emerald-700">${formatINR(sav)}</span></div>
+            <div class="w-full h-3 rounded-full bg-stone-200 overflow-hidden"><div class="h-full bg-indigo-600" style="width:${Math.round((sav/maxVal)*100)}%"></div></div>
+          </div>
+        `;
+
+        const catTotals = {};
+        state.transactions.forEach(t => {
+          const k = (t.type === 'income' ? '🟢 ' : '🔴 ') + t.category;
+          catTotals[k] = (catTotals[k] || 0) + t.amount;
+        });
+        const catChartList = document.getElementById('money-category-chart-list');
+        catChartList.innerHTML = Object.entries(catTotals).map(([k, v]) => `
+          <div class="flex items-center justify-between py-1 border-b border-[#E5E2DC]/60">
+            <span class="font-medium text-[#181816]">${k}</span>
+            <span class="font-mono-num font-bold text-[#181816]">${formatINR(v)}</span>
+          </div>
+        `).join('');
+
+        // Render Category Pills in Settings
+        document.getElementById('settings-income-cats-list').innerHTML = state.incomeCategories.map(c => `
+          <span class="px-2.5 py-1 rounded-lg bg-emerald-50 emerald-badge text-emerald-800 text-xs font-semibold">${c}</span>
+        `).join('');
+        document.getElementById('settings-expense-cats-list').innerHTML = state.expenseCategories.map(c => `
+          <span class="px-2.5 py-1 rounded-lg bg-rose-50 rose-badge text-rose-800 text-xs font-semibold">${c}</span>
+        `).join('');
+      }
+
+      function switchMoneyMenuTab(tabName) {
+        ['charts', 'settings', 'export'].forEach(t => {
+          document.getElementById('money-menu-panel-' + t).classList.toggle('hidden', t !== tabName);
+        });
+        document.querySelectorAll('.money-menu-tab-btn').forEach(btn => {
+          const active = btn.getAttribute('data-money-menu-tab') === tabName;
+          btn.className = 'money-menu-tab-btn py-2 rounded-lg transition ' + (active ? 'bg-white text-[#181816] shadow-2xs font-bold' : 'text-[#686660]');
+        });
+        renderMoneyMenuContent();
+      }
+
+      document.getElementById('btn-open-money-menu').addEventListener('click', () => {
+        const m = document.getElementById('money-menu-modal');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+        switchMoneyMenuTab('charts');
+      });
+      document.getElementById('btn-close-money-menu').addEventListener('click', () => {
+        const m = document.getElementById('money-menu-modal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      });
+      document.querySelectorAll('.money-menu-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchMoneyMenuTab(btn.getAttribute('data-money-menu-tab')));
+      });
+      document.getElementById('btn-menu-goto-reminders').addEventListener('click', () => {
+        document.getElementById('money-menu-modal').classList.add('hidden');
+        document.getElementById('money-menu-modal').classList.remove('flex');
+        switchView('reminders');
+      });
+
+      // Add Income Category & Expense Category in Money Menu Settings
+      document.getElementById('btn-add-income-cat').addEventListener('click', () => {
+        const inp = document.getElementById('input-new-income-cat');
+        const val = inp.value.trim();
+        if (val && !state.incomeCategories.includes(val)) {
+          state.incomeCategories.push(val);
+          inp.value = '';
+          renderMoneyMenuContent();
+          showToast('Added Income Category: ' + val);
+        }
+      });
+      document.getElementById('btn-add-expense-cat').addEventListener('click', () => {
+        const inp = document.getElementById('input-new-expense-cat');
+        const val = inp.value.trim();
+        if (val && !state.expenseCategories.includes(val)) {
+          state.expenseCategories.push(val);
+          inp.value = '';
+          renderMoneyMenuContent();
+          showToast('Added Expense Category: ' + val);
+        }
+      });
+
+      // Export CSV & Copy Summary
+      document.getElementById('btn-export-money-csv').addEventListener('click', () => {
+        const rows = [['Type', 'Title', 'Category', 'Amount (INR)', 'Date']];
+        state.transactions.forEach(t => rows.push([t.type, t.title, t.category, t.amount, t.date]));
+        const csv = rows.map(r => r.map(x => '"' + String(x).replace(/"/g, '""') + '"').join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ahad_money_tracker_export.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('Exported CSV report!');
+      });
+      document.getElementById('btn-copy-money-summary').addEventListener('click', () => {
+        const inc = state.transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
+        const exp = state.transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+        const txt = `Ahad Money Tracker (${monthNamesList[state.monthIndex]}): Income = ${formatINR(inc)}, Expenses = ${formatINR(exp)}, Saving = ${formatINR(inc - exp)}`;
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(ta);
+        showToast('Summary copied to clipboard!');
+      });
+
+      // =========================================================
+      // DEDICATED INVEST POP-UP WINDOW (LOG SIP / ASSET)
+      // =========================================================
+      function openInvestPopup() {
+        const m = document.getElementById('invest-popup-modal');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+      function closeInvestPopup() {
+        const m = document.getElementById('invest-popup-modal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+      document.getElementById('btn-open-invest-popup').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openInvestPopup();
+      });
+      document.getElementById('btn-close-invest-popup').addEventListener('click', closeInvestPopup);
+      document.getElementById('invest-popup-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('invest-input-name').value.trim();
+        const type = document.getElementById('invest-input-type').value;
+        const sip = parseFloat(document.getElementById('invest-input-sip').value) || 0;
+        const invested = parseFloat(document.getElementById('invest-input-invested').value) || 0;
+        const value = parseFloat(document.getElementById('invest-input-value').value) || invested;
+        const returns = document.getElementById('invest-input-returns').value.trim() || '+15.0% XIRR';
+        if (!name) return;
+        state.holdings.unshift({
+          id: 'h' + Date.now(),
+          name,
+          type,
+          sip,
+          invested,
+          value,
+          returns
+        });
+        e.target.reset();
+        closeInvestPopup();
+        renderAll();
+        showToast('Logged investment: ' + name + ' (' + formatINR(value) + ')');
+      });
+
+      // =========================================================
+      // GYM ADD SPLIT POP-UP MODAL
+      // =========================================================
+      function renderGymSplitButtons() {
+        const bar = document.getElementById('gym-splits-button-bar');
+        if (!bar) return;
+        const keys = Object.keys(state.gymSplits);
+        const shortNames = {
+          fullbody: 'Full Body',
+          push: 'Push (Chest / Shoulder / Tri)',
+          pull: 'Pull (Back / Biceps)',
+          legs: 'Legs & Core'
+        };
+        bar.innerHTML = keys.map(k => {
+          const active = k === state.gymSplit;
+          const label = shortNames[k] || state.splitLabels[k] || k.toUpperCase();
+          return `<button type="button" data-gym-split="${k}" class="gym-split-btn shrink-0 px-4 py-2 rounded-xl text-xs font-medium transition ${active ? 'bg-[#181816] text-white' : 'bg-white border border-[#E5E2DC] text-[#181816]'}">${label}</button>`;
+        }).join('');
+      }
+      document.getElementById('btn-open-add-split').addEventListener('click', () => {
+        const m = document.getElementById('gym-split-modal');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      });
+      document.getElementById('btn-close-split-modal').addEventListener('click', () => {
+        const m = document.getElementById('gym-split-modal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      });
+      document.getElementById('gym-split-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const raw = document.getElementById('input-new-split-name').value.trim();
+        if (!raw) return;
+        const key = raw.toLowerCase().replace(/[^a-z0-9]/g, '') || ('split' + Date.now());
+        if (!state.gymSplits[key]) {
+          state.gymSplits[key] = [
+            { id: 'g' + Date.now(), name: raw + ' Compound Lift', sets: 3, reps: 10, weightKg: 25.0, prevKg: 22.5, done: false }
+          ];
+          state.splitLabels[key] = raw + ' — Strength & Overload';
+        }
+        state.gymSplit = key;
+        e.target.reset();
+        document.getElementById('gym-split-modal').classList.add('hidden');
+        document.getElementById('gym-split-modal').classList.remove('flex');
+        renderGymSplitButtons();
+        renderAll();
+        showToast('Created & switched to split: ' + raw);
+      });
+
+      // =========================================================
+      // UNIVERSAL 1-CLICK EDIT & CUSTOMIZE POP-UP (ALL TABS)
+      // =========================================================
+      function openUniversalEditModal(domain, id) {
+        state.editingTarget = { domain, id };
+        const modal = document.getElementById('universal-edit-modal');
+        const badge = document.getElementById('uni-edit-badge');
+        const heading = document.getElementById('uni-edit-heading');
+        const l1 = document.getElementById('uni-label-1');
+        const l2 = document.getElementById('uni-label-2');
+        const l3 = document.getElementById('uni-label-3');
+        const i1 = document.getElementById('uni-input-1');
+        const i2 = document.getElementById('uni-input-2');
+        const i3 = document.getElementById('uni-input-3');
+        const extraRow = document.getElementById('uni-extra-row');
+        const l4 = document.getElementById('uni-label-4');
+        const l5 = document.getElementById('uni-label-5');
+        const i4 = document.getElementById('uni-input-4');
+        const i5 = document.getElementById('uni-input-5');
+
+        extraRow.classList.add('hidden');
+        extraRow.classList.remove('grid');
+
+        if (domain === 'tx') {
+          const item = state.transactions.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'MONEY TRACKER · 1-CLICK EDIT';
+          heading.textContent = 'Customize Transaction';
+          l1.textContent = 'Title / Description';
+          l2.textContent = 'Amount (₹)';
+          l3.textContent = 'Category';
+          i1.value = item.title;
+          i2.value = item.amount;
+          i3.value = item.category;
+        } else if (domain === 'holding') {
+          const item = state.holdings.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'INVEST PORTFOLIO · 1-CLICK CUSTOMIZE';
+          heading.textContent = 'Customize Holding / SIP';
+          l1.textContent = 'Asset / Fund Name';
+          l2.textContent = 'Current Value (₹)';
+          l3.textContent = 'Asset Category';
+          i1.value = item.name;
+          i2.value = item.value;
+          i3.value = item.type;
+          extraRow.classList.remove('hidden');
+          extraRow.classList.add('grid');
+          l4.textContent = 'Monthly SIP (₹)';
+          l5.textContent = 'Return / XIRR';
+          i4.value = item.sip || 0;
+          i5.value = item.returns || '+15% XIRR';
+        } else if (domain === 'gym') {
+          const list = state.gymSplits[state.gymSplit] || [];
+          const item = list.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'GYM OVERLOAD · 1-CLICK EDIT';
+          heading.textContent = 'Customize Exercise';
+          l1.textContent = 'Exercise Name';
+          l2.textContent = 'Working Weight (kg)';
+          l3.textContent = 'Sets';
+          i1.value = item.name;
+          i2.value = item.weightKg;
+          i3.value = item.sets;
+          extraRow.classList.remove('hidden');
+          extraRow.classList.add('grid');
+          l4.textContent = 'Reps per Set';
+          l5.textContent = 'Previous Weight (kg)';
+          i4.value = item.reps;
+          i5.value = item.prevKg;
+        } else if (domain === 'meal') {
+          const item = state.meals.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'PROTEIN LOG · 1-CLICK EDIT';
+          heading.textContent = 'Customize Logged Meal';
+          l1.textContent = 'Food / Meal Name';
+          l2.textContent = 'Protein (grams)';
+          l3.textContent = 'Calories (kcal)';
+          i1.value = item.name;
+          i2.value = item.protein;
+          i3.value = item.kcal;
+        } else if (domain === 'water') {
+          const item = state.waterLogs.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'WATER TRACKER · 1-CLICK EDIT';
+          heading.textContent = 'Customize Hydration Entry';
+          l1.textContent = 'Drink Label';
+          l2.textContent = 'Amount (ml)';
+          l3.textContent = 'Logged Time';
+          i1.value = item.label;
+          i2.value = item.amountMl;
+          i3.value = item.time;
+        } else if (domain === 'reminder') {
+          const item = state.reminders.find(x => x.id === id);
+          if (!item) return;
+          badge.textContent = 'ACTION REMINDER · 1-CLICK EDIT';
+          heading.textContent = 'Customize Action Reminder';
+          l1.textContent = 'Reminder Task';
+          l2.textContent = 'Priority (1 = High)';
+          l3.textContent = 'Tag (SIP / GYM / MONEY)';
+          i1.value = item.text;
+          i2.value = 1;
+          i3.value = item.tag;
+        }
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      function closeUniversalEditModal() {
+        state.editingTarget = null;
+        const modal = document.getElementById('universal-edit-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      document.getElementById('btn-close-uni-edit').addEventListener('click', closeUniversalEditModal);
+      document.getElementById('btn-uni-cancel').addEventListener('click', closeUniversalEditModal);
+
+      document.getElementById('btn-uni-delete').addEventListener('click', () => {
+        if (!state.editingTarget) return;
+        const { domain, id } = state.editingTarget;
+        closeUniversalEditModal();
+        if (domain === 'reminder') {
+          state.reminders = state.reminders.filter(r => r.id !== id);
+          renderAll();
+          showToast('Reminder removed');
+        } else {
+          askPermissionToRemove(domain, id, 'this selected item');
+        }
+      });
+
+      document.getElementById('universal-edit-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!state.editingTarget) return;
+        const { domain, id } = state.editingTarget;
+        const v1 = document.getElementById('uni-input-1').value.trim();
+        const v2 = parseFloat(document.getElementById('uni-input-2').value) || 0;
+        const v3 = document.getElementById('uni-input-3').value.trim();
+        const v4 = document.getElementById('uni-input-4').value.trim();
+        const v5 = document.getElementById('uni-input-5').value.trim();
+
+        if (domain === 'tx') {
+          const item = state.transactions.find(x => x.id === id);
+          if (item && v1) {
+            item.title = v1;
+            item.amount = v2;
+            item.category = v3 || item.category;
+          }
+        } else if (domain === 'holding') {
+          const item = state.holdings.find(x => x.id === id);
+          if (item && v1) {
+            item.name = v1;
+            item.value = v2;
+            item.type = v3 || item.type;
+            item.sip = parseFloat(v4) || 0;
+            item.returns = v5 || item.returns;
+          }
+        } else if (domain === 'gym') {
+          const list = state.gymSplits[state.gymSplit] || [];
+          const item = list.find(x => x.id === id);
+          if (item && v1) {
+            item.name = v1;
+            item.weightKg = v2;
+            item.sets = parseInt(v3, 10) || item.sets;
+            item.reps = parseInt(v4, 10) || item.reps;
+            item.prevKg = parseFloat(v5) || item.prevKg;
+          }
+        } else if (domain === 'meal') {
+          const item = state.meals.find(x => x.id === id);
+          if (item && v1) {
+            item.name = v1;
+            item.protein = Math.round(v2);
+            item.kcal = parseInt(v3, 10) || item.kcal;
+          }
+        } else if (domain === 'water') {
+          const item = state.waterLogs.find(x => x.id === id);
+          if (item && v1) {
+            const diff = Math.round(v2) - item.amountMl;
+            item.label = v1;
+            item.amountMl = Math.round(v2);
+            item.time = v3 || item.time;
+            state.waterMl = Math.max(0, state.waterMl + diff);
+          }
+        } else if (domain === 'reminder') {
+          const item = state.reminders.find(x => x.id === id);
+          if (item && v1) {
+            item.text = v1;
+            item.tag = (v3 || item.tag).toUpperCase();
+          }
+        }
+
+        closeUniversalEditModal();
+        renderAll();
+        showToast('Changes saved!');
+      });
+
+      // Add New Action Reminder button
+      document.getElementById('btn-add-new-reminder').addEventListener('click', () => {
+        const newId = 'r' + Date.now();
+        state.reminders.unshift({
+          id: newId,
+          text: 'New Action Reminder — Tap to customize details',
+          tag: 'ACTION',
+          date: 'Today',
+          done: false
+        });
+        renderAll();
+        openUniversalEditModal('reminder', newId);
+      });
+
+      // Delegate 1-Click Edit & Money Book + buttons
+      document.addEventListener('click', (e) => {
+        const moneyAddBtn = e.target.closest('[data-money-add]');
+        if (moneyAddBtn) {
+          e.stopPropagation();
+          openMoneyOnlyModal(moneyAddBtn.getAttribute('data-money-add'));
+          return;
+        }
+        const editTrigger = e.target.closest('[data-oneclick-edit]');
+        if (editTrigger) {
+          e.stopPropagation();
+          openUniversalEditModal(editTrigger.getAttribute('data-oneclick-edit'), editTrigger.getAttribute('data-edit-id'));
+          return;
+        }
+      });
+
+      // Personal Backup, Restore & Clear Demo handlers
+      document.getElementById('btn-backup-json').addEventListener('click', () => {
+        savePersistedState();
+        const raw = localStorage.getItem(STORAGE_KEY) || JSON.stringify(state);
+        const blob = new Blob([raw], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'my_life_ahad_backup.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('Full backup downloaded (.json)!');
+      });
+
+      document.getElementById('input-restore-json').addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const parsed = JSON.parse(String(ev.target.result));
+            if (parsed && typeof parsed === 'object') {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+              loadPersistedState();
+              renderGymSplitButtons();
+              renderAll();
+              showToast('Backup restored successfully!');
+            }
+          } catch (err) {
+            showToast('Invalid backup file');
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('btn-clear-demo-data').addEventListener('click', () => {
+        askPermissionToRemove('clear_demo', 'all', 'all sample demo data and start fresh from zero');
+      });
+
+      // Default load
+      loadPersistedState();
+      renderGymSplitButtons();
+      switchView('overview');
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
